@@ -1,0 +1,68 @@
+
+body{
+    background-color: #F5EEDC;
+}
+
+.header{
+    background-color: #AC0D0D;
+    display:flex;
+    padding: 1rem;
+    align-items:center;
+    justify-content: center;
+    
+}
+
+h1{
+    
+  -webkit-text-fill-color: #F1D00A;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #173672;
+  font-size: 4rem;
+  font-family: 'Bangers';
+  margin: 0 auto;
+}
+
+/*CART BUTTON*/
+#cart-btn{
+    background: none;
+    border: none;
+}
+
+.bi-cart-fill{
+    font-size: 2rem;
+}
+
+/*CARD-BUTTON*/
+
+.btn-read-more, .btn-add-to-cart{
+    color: #EFEFEF;
+    font-weight: bold;
+    background-color: #0F0E0E;
+    max-width: 200px;
+    cursor: pointer;
+}
+
+.btn:hover{
+    color:#FACF5A;
+}
+
+/*PRODUCT-CARDS*/
+.card{
+    height: 370px;
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+/*PAGINATION*/
+.page-link{
+    color: #AC0D0D;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;;
+}
