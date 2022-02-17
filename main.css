@@ -59,6 +59,9 @@ h1{
 /*PRODUCT-CARDS*/
 .card{
     height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 8px 0 rgb(0 0 0 / 8%), 0 0 15px 0 rgb(0 0 0 / 2%),
+    0 0 20px 4px rgb(0 0 0 / 6%);
 }
 
 .card-body{
@@ -67,6 +70,11 @@ h1{
     justify-content: space-between;
     text-align: center;
 
+}
+
+.card-img-top{
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 /*PAGINATION*/
