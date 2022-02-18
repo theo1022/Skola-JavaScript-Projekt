@@ -7,88 +7,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./main.css">
 </head>
 
 <body>
     <header class="header">
-        <h1>Poke mart</h1>
-        <div class="shoping-cart">Kundvagn</div>
+        <h1>Poké Mart</h1>
+        <div class="shoping-cart">
+            <button id="cart-btn"><i class="bi bi-cart-fill"></i></button>
+        </div>
     </header>
     <main>
         <!--Pagination-->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
+        <div class="pagination d-flex justify-content-center">
+            <nav aria-label="Page navigation example" class="pt-3">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&lt;</span></a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&gt;</span></a></li>
+                </ul>
+            </nav>
+        </div>
+       
 
         <!--Products-->
-        <section class="products-main-section">
+        <section class="products-main-section container-fluid container-lg">
             <div class="row">
-                <div id="card-1" class="card" style="width: 18rem;">
-                    <img id="icon-1" src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 id="name-1" class="card-title">Card title</h5>
-                        <h5 id="pris-1" class="card-text"></h5>
-                        <a id="read-more-1" href="#" class="btn btn-read-more">Read More</a>
-                        <a id="add-to-cart-1" href="#" class="btn btn-add-to-cart">Add to cart</a>
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div id="card-1" class="card">
+                        <img id="icon-1" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 id="name-1" class="card-title">Card title</h5>
+                            <h5 id="pris-1" class="card-text"></h5>
+                            <div class="button-group">
+                                <a id="read-more-1" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="add-to-cart-1" href="#" class="btn btn-add-to-cart">Add to cart</a>
+                            </div>
+                           
+                        </div>
                     </div>
                 </div>
-
-                <div id="card-2" class="card" style="width: 18rem;">
-                    <img id="icon-2" src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 id="name-2" class="card-title">Card title</h5>
-                        <h5 id="pris-2" class="card-text"></h5>
-                        <a id="read-more-2" href="#" class="btn btn-read-more">Read More</a>
-                        <a id="add-to-cart-2" href="#" class="btn btn-add-to-cart">Add to cart</a>
+              
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div id="card-2" class="card">
+                        <img id="icon-2" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 id="name-2" class="card-title">Card title</h5>
+                            <h5 id="pris-2" class="card-text"></h5>
+                            <div class="button-group">
+                                <a id="read-more-2" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="add-to-cart-2" href="#" class="btn btn-add-to-cart">Add to cart</a>
+                            </div>
+                           
+                        </div>
                     </div>
                 </div>
-
-                <div id="card-3" class="card" style="width: 18rem;">
-                    <img id="icon-3" src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 id="name-3" class="card-title">Card title</h5>
-                        <h5 id="pris-3" class="card-text"></h5>
-                        <a id="read-more-3" href="#" class="btn btn-read-more">Read More</a>
-                        <a id="add-to-cart-3" href="#" class="btn btn-add-to-cart">Add to cart</a>
+               
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div id="card-3" class="card">
+                        <img id="icon-3" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 id="name-3" class="card-title">Card title</h5>
+                            <h5 id="pris-3" class="card-text"></h5>
+                            <div class="button-group">
+                                <a id="read-more-3" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="add-to-cart-3" href="#" class="btn btn-add-to-cart">Add to cart</a>
+                            </div>
+                         
+                        </div>
                     </div>
                 </div>
-
-                <div id="card-4" class="card" style="width: 18rem;">
-                    <img id="icon-4" src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 id="name-4" class="card-title">Card title</h5>
-                        <h5 id="pris-4" class="card-text"></h5>
-                        <a id="read-more-4" href="#" class="btn btn-read-more">Read More</a>
-                        <a id="add-to-cart-4" href="#" class="btn btn-add-to-cart">Add to cart</a>
+               
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div id="card-4" class="card">
+                        <img id="icon-4" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 id="name-4" class="card-title">Card title</h5>
+                            <h5 id="pris-4" class="card-text"></h5>
+                            <div class="button-group">
+                                <a id="read-more-4" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="add-to-cart-4" href="#" class="btn btn-add-to-cart">Add to cart</a>
+                            </div>
+                           
+                        </div>
+                    </div>    
+                </div>
+              
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div id="card-5" class="card">
+                        <img id="icon-5" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 id="name-5" class="card-title">Card title</h5>
+                            <h5 id="pris-5" class="card-text"></h5>
+                            <div class="button-group">
+                                <a id="read-more-5" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="add-to-cart-5" href="#" class="btn btn-add-to-cart">Add to cart</a>
+                            </div>
+                           
+                        </div>
+                    </div>    
+                </div>
+              
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div id="card-6" class="card">
+                        <img id="icon-6" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 id="name-6" class="card-title">Card title</h5>
+                            <h5 id="pris-6" class="card-text"></h5>
+                            <div class="button-group">
+                                <a id="read-more-6" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="add-to-cart-6" href="#" class="btn btn-add-to-cart">Add to cart</a>
+                            </div>
+                          
+                        </div>
                     </div>
                 </div>
-
-                <div id="card-5" class="card" style="width: 18rem;">
-                    <img id="icon-5" src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 id="name-5" class="card-title">Card title</h5>
-                        <h5 id="pris-5" class="card-text"></h5>
-                        <a id="read-more-5" href="#" class="btn btn-read-more">Read More</a>
-                        <a id="add-to-cart-5" href="#" class="btn btn-add-to-cart">Add to cart</a>
-                    </div>
-                </div>
-
-                <div id="card-6" class="card" style="width: 18rem;">
-                    <img id="icon-6" src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 id="name-6" class="card-title">Card title</h5>
-                        <h5 id="pris-6" class="card-text"></h5>
-                        <a id="read-more-6" href="#" class="btn btn-read-more">Read More</a>
-                        <a id="add-to-cart-6" href="#" class="btn btn-add-to-cart">Add to cart</a>
-                    </div>
-                </div>
+                
             </div>
 
         </section>
