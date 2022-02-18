@@ -12,11 +12,11 @@ export class Pokemon {
      */
     this.baseUrl = "https://pokeapi.co/";
     /**
-     * @type {string} base search path for basic information in the PokeAPI URL
+     * @type {string} add a number to the string to get a specific pokemon based on the national pokedex and use as searchpath with the url. Base search path for basic information in the PokeAPI URL,
      */
     this.spritePath = "/api/v2/pokemon/";
     /**
-     * @type {string} base search path for description in the PokeAPI URL
+     * @type {string} add a number to the string to get a specific pokemon based on the national pokedex and use as searchpath with the url. Base search path for description in the PokeAPI URL.
      */
     this.flavorPath = "/api/v2/pokemon-species/";
 
@@ -26,7 +26,7 @@ export class Pokemon {
     this.url = new URL(this.baseUrl);
 
     /**
-     * @type {Array.<{dexId: number, name: string, icon: URL}>} objects containg the dexId, name, and icon(URL) of a specific pokemon per given index
+     * @type {Array.<{dexId: number, name: string, icon: string}>} objects containg the dexId, name, and the string form of the URL leading to the icon of a specific pokemon per given index
      */
     this.pokemons = this.SetPokemonArray(amount);
   }
@@ -34,7 +34,7 @@ export class Pokemon {
   /**
    * Returns an array of objects containing the National Pokedex id, name, and url to the front spire of a Pokemon starting from Pokedex id 1 and up to whichever Pokedex number is given as an argument.
    * @param {number} amount the total number of pokemon to store in the array
-   * @returns {Array.<number, string, URL>} dexId, name, and icon of the pokemon as objects in an array
+   * @returns {Array.<{dexId: number, name: string, icon: string}>} dexId, name, and the string form of the URL leading to the Pokemon's icon as objects in an array
    */
   SetPokemonArray(amount) {
     const url = this.url;
@@ -51,8 +51,10 @@ export class Pokemon {
             name: object.name,
             icon: object.sprites.front_default,
           });
+          return object;
         })
         .then(() =>
+          //! sorteringen fungerar fortfarande inte som den ska
           pokemonObject.sort((a, b) => {
             a.dexId - b.dexId;
           })
@@ -62,14 +64,28 @@ export class Pokemon {
     return pokemonObject;
   }
 
+  /**
+   * Reads the local objects array and returns the name of the Pokemon corresponding to the number given as an argument
+   * @param {number} index the number corresponding with a Pokemon's National Pokedex id
+   * @returns {string} the name of the Pokemon
+   */
   GetPokeName(index) {
-    //TODO hämta name från pokemons array
-    //Theo
+    //! Undefined
+    const pokeName = this.pokemons[index - 1].name;
+    console.log(pokeName); //TODO radera, enbart hjälp vid skapande av metod
+    return pokeName;
   }
 
+  /**
+   * Reads the local objects array and returns the string form of the URL to the icon of the Pokemon corresponding to the number given as an argument
+   * @param {number} index the number corresponding with a Pokemon's National Pokedex id
+   * @returns {string} the string form of the URL leading to the Pokemon's icon
+   */
   GetPokeIcon(index) {
-    //TODO hämta sprite från pokemons array
-    //Theo
+    //! Undefined
+    const pokeIcon = this.pokemons[index - 1].icon;
+    console.log(pokeIcon); //TODO radera, enbart hjälp vid skapande av metod
+    return pokeIcon;
   }
 
   GetPokemonDescription(index) {
