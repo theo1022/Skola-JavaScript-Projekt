@@ -41,7 +41,6 @@ export class Pokemon {
 
     let pokemonObject = [];
 
-    //! BUG Pokemon hamnar inte i rätt ordning enligt deras Pokedex id
     for (let i = 1; i < amount + 1; i++) {
       url.pathname = this.spritePath + i;
       fetch(url)
@@ -52,7 +51,12 @@ export class Pokemon {
             name: object.name,
             icon: object.sprites.front_default,
           });
-        });
+        })
+        .then(() =>
+          pokemonObject.sort((a, b) => {
+            a.dexId - b.dexId;
+          })
+        );
     }
     console.log(pokemonObject); //TODO radera, enbart hjälp vid skapande av metod
     return pokemonObject;
