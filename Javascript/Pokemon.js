@@ -26,38 +26,45 @@ export class Pokemon {
     this.url = new URL(this.baseUrl);
 
     /**
-     * @type {Array.<{dexId: number, name: string, icon: string}>} objects containg the dexId, name, and the string form of the URL leading to the icon of a specific pokemon per given index
+     * @type {Array.<{dexId: number, name: string, sprite: string, height: number, weight: number, dualType: boolean, typePrimary: string, typeSecondary: string|void}>} objects containg information about a Pokemon. Size values are  are in centimeters and grams. typeSecondary will only be defined if dualType equals true
      */
     this.pokemons = this.SetPokemonArray(amount);
   }
 
   /**
-   * Returns an array of objects containing the National Pokedex id, name, and url to the front spire of a Pokemon starting from Pokedex id 1 and up to whichever Pokedex number is given as an argument.
+   * Returns an array of objects containing information about the requested amount of Pokemon.
    * @param {number} amount the total number of pokemon to store in the array
-   * @returns {Array.<{dexId: number, name: string, icon: string}>} dexId, name, and the string form of the URL leading to the Pokemon's icon as objects in an array
+   * @returns {Array.<{dexId: number, name: string, sprite: string, height: number, weight: number, dualType: boolean, typePrimary: string, typeSecondary: string|void}>} Size values are in centimeters and grams. typeSecondary will only be defined if dualType equals true.
    */
   async SetPokemonArray(amount) {
-    const url = this.url;
+    const localUrl = this.url;
 
     let pokemonObject = [];
 
     for (let i = 1; i < amount + 1; i++) {
-      url.pathname = this.spritePath + i;
-      await fetch(url)
+      localUrl.pathname = this.spritePath + i;
+      await fetch(localUrl)
         .then((response) => response.json())
         .then((object) => {
-          pokemonObject.push({
+          const objectDualType = object.types.length === 2;
+
+          let pokemon = {
             dexId: object.id,
             name: object.name,
-            icon: object.sprites.front_default,
-          });
+            sprite: object.sprites.front_default,
+            height: +`${object.height}0`,
+            weight: object.weight,
+            dualType: objectDualType,
+            typePrimary: object.types[0].type.name,
+          };
+
+          if (objectDualType)
+            pokemon[`typeSecondary`] = object.types[1].type.name;
+
+          pokemonObject.push(pokemon);
           return object;
         })
-        .then(() =>
-          pokemonObject.sort((a, b) => {
-            a.dexId - b.dexId;
-          })
-        );
+        .then(() => pokemonObject.sort((a, b) => a.dexId - b.dexId));
     }
     console.log(pokemonObject); //TODO radera, enbart hjälp vid skapande av metod
     return pokemonObject;
@@ -82,7 +89,7 @@ export class Pokemon {
    */
   GetPokeIcon(index) {
     //! Undefined
-    const pokeIcon = this.pokemons[index - 1].icon;
+    const pokeIcon = this.pokemons[index - 1].sprite;
     console.log(pokeIcon); //TODO radera, enbart hjälp vid skapande av metod
     return pokeIcon;
   }
