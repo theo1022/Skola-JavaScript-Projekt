@@ -36,14 +36,14 @@ export class Pokemon {
    * @param {number} amount the total number of pokemon to store in the array
    * @returns {Array.<{dexId: number, name: string, icon: string}>} dexId, name, and the string form of the URL leading to the Pokemon's icon as objects in an array
    */
-  SetPokemonArray(amount) {
+  async SetPokemonArray(amount) {
     const url = this.url;
 
     let pokemonObject = [];
 
     for (let i = 1; i < amount + 1; i++) {
       url.pathname = this.spritePath + i;
-      fetch(url)
+      await fetch(url)
         .then((response) => response.json())
         .then((object) => {
           pokemonObject.push({
@@ -54,7 +54,6 @@ export class Pokemon {
           return object;
         })
         .then(() =>
-          //! sorteringen fungerar fortfarande inte som den ska
           pokemonObject.sort((a, b) => {
             a.dexId - b.dexId;
           })
