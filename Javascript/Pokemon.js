@@ -3,10 +3,9 @@
  */
 export class Pokemon {
   /**
-   * Creates the object of the class, containing parts of the URL to the PokeAPI site, as well as an array of Pokemon
-   * @param {number} amount the total number of pokemon we wish to have access to
+   * Creates the object of the class, containing parts of the URL to the PokeAPI site
    */
-  constructor(amount) {
+  constructor() {
     /**
      * domain part of the PokeAPI URL
      * @type {string}
@@ -28,26 +27,22 @@ export class Pokemon {
      * @type {URL}
      */
     this.url = new URL(this.baseUrl);
-
-    /**
-     * objects containg information about a Pokemon. Size values are  are in centimeters and grams. typeSecondary will only be defined if dualType equals true
-     * @type {Array.<{dexId: number, name: string, sprite: string, height: number, weight: number, dualType: boolean, typePrimary: string, typeSecondary: string|void}>}
-     */
-    this.pokemons = this.SetPokemonArray(amount);
   }
 
   /**
    * Returns an array of objects containing information about the requested amount of Pokemon.
-   * @param {number} amount the total number of pokemon to store in the array
-   * @returns {Array.<{dexId: number, name: string, sprite: string, height: number, weight: number, dualType: boolean, typePrimary: string, typeSecondary: string|void}>} Size values are in centimeters and grams. typeSecondary will only be defined if dualType equals true.
+   * @param {number} dexNumberStart the number of a desired Pokemon in the National Pokedex - this Pokemon will be the first instance in the array
+   * @param {number} amount the total number of Pokemon to store in the array - will be counting up along the National Pokedex from the number set as dexNumberStart
+   * @returns {Array.<{dexId: number, name: string, spriteUrl: string, height: number, weight: number, dualType: boolean, typePrimary: string, typeSecondary: string|void}>} Array of objects containing base information about a Pokemon. Size values are in centimeters and grams. typeSecondary will only be defined if dualType equals true.
    */
-  async SetPokemonArray(amount) {
+  async GetPokemonArray(dexNumberStart, amount) {
     const localUrl = this.url;
 
     let pokemonObject = [];
 
-    for (let i = 1; i < amount + 1; i++) {
-      localUrl.pathname = this.spritePath + i;
+    for (let i = 0; i < amount - 1 + 1; i++) {
+      localUrl.pathname = this.spritePath + (dexNumberStart + i);
+
       await fetch(localUrl)
         .then((response) => response.json())
         .then((object) => {
@@ -56,9 +51,9 @@ export class Pokemon {
           let pokemon = {
             dexId: object.id,
             name: object.name,
-            sprite: object.sprites.front_default,
-            height: +`${object.height}0`,
-            weight: object.weight,
+            spriteUrl: object.sprites.front_default,
+            height: object.height * 10,
+            weight: object.weight * 100,
             dualType: objectDualType,
             typePrimary: object.types[0].type.name,
           };
@@ -74,30 +69,6 @@ export class Pokemon {
     pokemonObject.sort((a, b) => a.dexId - b.dexId);
     console.log(pokemonObject); //TODO radera, enbart hjälp vid skapande av metod
     return pokemonObject;
-  }
-
-  /**
-   * Reads the local objects array and returns the name of the Pokemon corresponding to the number given as an argument
-   * @param {number} index the number corresponding with a Pokemon's National Pokedex id
-   * @returns {string} the name of the Pokemon
-   */
-  GetPokeName(index) {
-    //! Undefined
-    const pokeName = this.pokemons[index - 1].name;
-    console.log(pokeName); //TODO radera, enbart hjälp vid skapande av metod
-    return pokeName;
-  }
-
-  /**
-   * Reads the local objects array and returns the string form of the URL to the icon of the Pokemon corresponding to the number given as an argument
-   * @param {number} index the number corresponding with a Pokemon's National Pokedex id
-   * @returns {string} the string form of the URL leading to the Pokemon's icon
-   */
-  GetPokeIcon(index) {
-    //! Undefined
-    const pokeIcon = this.pokemons[index - 1].sprite;
-    console.log(pokeIcon); //TODO radera, enbart hjälp vid skapande av metod
-    return pokeIcon;
   }
 
   GetPokemonDescription(index) {
