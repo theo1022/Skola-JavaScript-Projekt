@@ -12,7 +12,7 @@ async function Start(dexNumberStart, amount) {
 
 function PrintPokeCard(pokeArray) {
   console.log(pokeArray); //TODO radera, enbart hjälp vid skapande av metod
-  const cards = document.querySelectorAll(".card");
+  const cards = document.querySelectorAll(".card-preview");
   for (let card of cards) {
     const index = card.id.slice(5, 6);
     console.log(index);
@@ -56,24 +56,28 @@ function InitiateButtons(pokeArray) {
 }
 
 async function showDescription(name, pokeArray) {
-  const cards = document.querySelectorAll(".card");
+  const cards = document.querySelectorAll(".card-preview");
   const cardText = document.querySelector(".card-description");
   const pokemonName = document.getElementById("pokemon-name");
+  const pokemonImage = document.getElementById("icon-modal");
+  const typeCollection = document.getElementById("pokemon-type");
   const pokemonId = document.getElementById("pokemon-id");
   const pokemonHeightandWeight = document.getElementById("pokemon-height-weight");
-  const pokemonImage = document.getElementById("icon");
 
   for (let card of cards) {
+    let index = card.id.slice(5,6);
+
     const cardTitle = card.querySelector(".card-title");
-    console.log(cardTitle);
     const cardImage = card.querySelector(".card-img-top");
     const cardTypeCollection = card.querySelector(".type-collection");
 
     if (cardTitle.innerText.toLowerCase() === name) {
       pokemonName.innerText = cardTitle.innerText;
+      pokemonId.innerHTML = "DexID: " + pokeArray[index].dexId;
+      pokemonHeightandWeight.innerText = "Height: " + pokeArray[index].height + " Weight: " + pokeArray[index].weight;
       pokemonImage.src = cardImage.src;
+      typeCollection.innerHTML = cardTypeCollection.innerHTML;
       
-
       cardText.innerText = await pokemon.GetPokemonDescription(name);
       console.log(cardText.innerText);
     }
