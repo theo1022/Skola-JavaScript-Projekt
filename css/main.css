@@ -88,3 +88,8 @@ h1{
     color:#0F0E0E;
     background: none;
 }
+
+/*MODAL*/
+#pokemon-height-weight{
+    font-weight: bold;
+}

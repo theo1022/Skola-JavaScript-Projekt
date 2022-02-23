@@ -51,24 +51,36 @@ function InitiateButtons(pokeArray) {
 
       console.log(pokemonName);
       let title = pokemonName.innerText;
+      console.log(title);
 
-      showDescription(title.toLowerCase());
+      showDescription(title.toLowerCase(), pokeArray);
     }
   });
 }
 
-async function showDescription(name) {
-  const cards = document.querySelectorAll(".card");
+async function showDescription(name, pokeArray) {
+  const cards = document.querySelectorAll(".card-preview");
   const cardText = document.querySelector(".card-description");
   const pokemonName = document.getElementById("pokemon-name");
-  //const respontest = ;
+  const pokemonImage = document.getElementById("icon-modal");
+  const typeCollection = document.getElementById("pokemon-type");
+  const pokemonId = document.getElementById("pokemon-id");
+  const pokemonHeightandWeight = document.getElementById("pokemon-height-weight");
 
   for (let card of cards) {
+    let index = card.id.slice(5,6);
+
     const cardTitle = card.querySelector(".card-title");
+    const cardImage = card.querySelector(".card-img-top");
+    const cardTypeCollection = card.querySelector(".type-collection");
 
     if (cardTitle.innerText.toLowerCase() === name) {
       pokemonName.innerText = cardTitle.innerText;
-
+      pokemonId.innerHTML = "National dex # " + pokeArray[index].dexId;
+      pokemonHeightandWeight.innerText = "Height: " + pokeArray[index].height + " Weight: " + pokeArray[index].weight;
+      pokemonImage.src = cardImage.src;
+      typeCollection.innerHTML = cardTypeCollection.innerHTML;
+      
       cardText.innerText = await pokemon.GetPokemonDescription(name);
       console.log(cardText.innerText);
     }
