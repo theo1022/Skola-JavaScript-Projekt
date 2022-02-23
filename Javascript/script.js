@@ -73,7 +73,7 @@ async function showDescription(name, pokeArray) {
 
     if (cardTitle.innerText.toLowerCase() === name) {
       pokemonName.innerText = cardTitle.innerText;
-      pokemonId.innerHTML = "DexID: " + pokeArray[index].dexId;
+      pokemonId.innerHTML = "National dex # " + pokeArray[index].dexId;
       pokemonHeightandWeight.innerText = "Height: " + pokeArray[index].height + " Weight: " + pokeArray[index].weight;
       pokemonImage.src = cardImage.src;
       typeCollection.innerHTML = cardTypeCollection.innerHTML;
