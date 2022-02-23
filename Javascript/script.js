@@ -4,40 +4,40 @@ const pokemon = new Pokemon();
 
 Start(1, 6);
 
-function Start(dexNumberStart, amount) {
-  PrintPokeCard(dexNumberStart, amount);
-  InitiateButtons();
+async function Start(dexNumberStart, amount) {
+  const pokeArray = await pokemon.GetPokemonArray(dexNumberStart, amount);
+  PrintPokeCard(pokeArray);
+  InitiateButtons(pokeArray);
 }
 
-async function PrintPokeCard(dexNumberStart, amount) {
-  const array = await pokemon.GetPokemonArray(dexNumberStart, amount);
-  console.log(array); //TODO radera, enbart hjälp vid skapande av metod
+function PrintPokeCard(pokeArray) {
+  console.log(pokeArray); //TODO radera, enbart hjälp vid skapande av metod
   const cards = document.querySelectorAll(".card");
   for (let card of cards) {
     const index = card.id.slice(5, 6);
     console.log(index);
 
     const nameElem = card.querySelector(".card-title");
-    nameElem.innerHTML = array[index].name;
-    nameElem.innerHTML = array[index].name.toUpperCase();
+    nameElem.innerHTML = pokeArray[index].name;
+    nameElem.innerHTML = pokeArray[index].name.toUpperCase();
 
     const imgElem = card.querySelector(`#icon-${index}`);
-    imgElem.src = array[index].spriteUrl;
+    imgElem.src = pokeArray[index].spriteUrl;
 
     const typeCollectionElem = card.querySelector(".type-collection");
     typeCollectionElem.innerHTML = `<div class="type ${
-      array[index].typePrimary
-    }">${array[index].typePrimary.toUpperCase()}</div>`;
+      pokeArray[index].typePrimary
+    }">${pokeArray[index].typePrimary.toUpperCase()}</div>`;
 
-    if (array[index].dualType) {
+    if (pokeArray[index].dualType) {
       typeCollectionElem.innerHTML += `<div class="type ${
-        array[index].typeSecondary
-      }">${array[index].typeSecondary.toUpperCase()}</div>`;
+        pokeArray[index].typeSecondary
+      }">${pokeArray[index].typeSecondary.toUpperCase()}</div>`;
     }
   }
 }
 
-function InitiateButtons() {
+function InitiateButtons(pokeArray) {
   document.addEventListener("click", function (event) {
     let target = event.target;
 
