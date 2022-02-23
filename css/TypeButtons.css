@@ -1,0 +1,98 @@
+/*TODO Ändra så alla type blir samma width - funkar inte med vanlig width*/
+
+.card-img-top {
+  padding: 0.375rem 0.75rem;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.type-collection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.type {
+  font-weight: bold;
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  color: white;
+  width: 75px;
+}
+
+.normal {
+  background-color: #a8a878;
+}
+
+.fire {
+  background-color: #f08030;
+}
+
+.fighting {
+  background-color: #c03028;
+}
+
+.water {
+  background-color: #6890f0;
+}
+
+.flying {
+  background-color: #a890f0;
+}
+
+.grass {
+  background-color: #78c850;
+}
+
+.poison {
+  background-color: #a040a0;
+}
+
+.electric {
+  background-color: #f8d030;
+}
+
+.ground {
+  background-color: #e0c068;
+}
+
+.psychic {
+  background-color: #f85888;
+}
+
+.rock {
+  background-color: #b8a038;
+}
+
+.ice {
+  background-color: #98d8d8;
+}
+
+.bug {
+  background-color: #a8b820;
+}
+
+.dragon {
+  background-color: #7038f8;
+}
+
+.ghost {
+  background-color: #705898;
+}
+
+.dark {
+  background-color: #705848;
+}
+
+.steel {
+  background-color: #b8b8d0;
+}
+
+.fairy {
+  background-color: #ee99ac;
+}
