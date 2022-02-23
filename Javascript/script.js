@@ -81,8 +81,13 @@ async function showDescription(name, pokeArray) {
       pokemonImage.src = cardImage.src;
       typeCollection.innerHTML = cardTypeCollection.innerHTML;
       
-      cardText.innerText = await pokemon.GetPokemonDescription(name);
-      console.log(cardText.innerText);
+
+      cardText.innerHTML = await pokemon.GetPokemonDescription(name);
+      
+      cardText.innerHTML = cardText.innerHTML.replaceAll("\u000C", " ");
+     
+      console.log(cardText.innerHTML);
+      
     }
   }
 }

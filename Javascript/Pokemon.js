@@ -79,8 +79,20 @@ export class Pokemon {
     let description = await response.json();
     console.log(description);
 
-    let pokemonDescription = description.flavor_text_entries[0].flavor_text;
+    // let pokemonDescription = description.flavor_text_entries[0].flavor_text;
+    let pokemonDescription = description.flavor_text_entries;
+    let pokemonDescriptionText;
 
-    return pokemonDescription;
+    for (let i = 0; i < pokemonDescription.length; i++) {
+
+      if (pokemonDescription[i].language.name === "en") {
+
+        console.log(pokemonDescription[i].language.name);
+        pokemonDescriptionText = pokemonDescription[i].flavor_text;
+        
+      }
+    }
+
+    return pokemonDescriptionText;
   }
 }
