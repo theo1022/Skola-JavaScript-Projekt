@@ -18,7 +18,6 @@ function PrintPokeCard(pokeArray) {
     console.log(index);
 
     const nameElem = card.querySelector(".card-title");
-    nameElem.innerHTML = pokeArray[index].name;
     nameElem.innerHTML = pokeArray[index].name.toUpperCase();
 
     const dexIdElem = card.querySelector(".dex-number");
@@ -26,6 +25,7 @@ function PrintPokeCard(pokeArray) {
 
     const imgElem = card.querySelector(`#icon-${index}`);
     imgElem.src = pokeArray[index].spriteUrl;
+    imgElem.alt = nameElem.innerHTML + " official artwork";
 
     const typeCollectionElem = card.querySelector(".type-collection");
     typeCollectionElem.innerHTML = `<div class="type ${
