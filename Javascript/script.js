@@ -75,13 +75,13 @@ async function showDescription(name, pokeArray) {
     const cardTypeCollection = card.querySelector(".type-collection");
 
     if (cardTitle.innerText.toLowerCase() === name) {
+      
       pokemonName.innerText = cardTitle.innerText;
       pokemonId.innerHTML = "National dex # " + pokeArray[index].dexId;
       pokemonHeightandWeight.innerText = "Height: " + pokeArray[index].height + " cm" +"\n" + " Weight: " + pokeArray[index].weight + " g";
       pokemonImage.src = cardImage.src;
       typeCollection.innerHTML = cardTypeCollection.innerHTML;
       
-
       cardText.innerHTML = await pokemon.GetPokemonDescription(name);
       
       cardText.innerHTML = cardText.innerHTML.replaceAll("\u000C", " ");

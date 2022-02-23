@@ -71,6 +71,12 @@ export class Pokemon {
     return pokemonObject;
   }
 
+  /**
+   * 
+   * @param {string} index -the name of chosen pokemon which complete the patname for api-url
+   * @returns {string} returns a string with flavor-text for chosen pokemon based on pokemon name
+   */
+
   async GetPokemonDescription(index) {
     this.url.pathname = this.flavorPath + index;
 
@@ -79,7 +85,6 @@ export class Pokemon {
     let description = await response.json();
     console.log(description);
 
-    // let pokemonDescription = description.flavor_text_entries[0].flavor_text;
     let pokemonDescription = description.flavor_text_entries;
     let pokemonDescriptionText;
 
@@ -89,7 +94,7 @@ export class Pokemon {
 
         console.log(pokemonDescription[i].language.name);
         pokemonDescriptionText = pokemonDescription[i].flavor_text;
-        
+
       }
     }
 
