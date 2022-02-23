@@ -2,7 +2,7 @@ import { Pokemon } from "./Pokemon.js";
 
 const pokemon = new Pokemon();
 
-Start(1, 6);
+Start(60, 6);
 
 async function Start(dexNumberStart, amount) {
   const pokeArray = await pokemon.GetPokemonArray(dexNumberStart, amount);
@@ -20,6 +20,9 @@ function PrintPokeCard(pokeArray) {
     const nameElem = card.querySelector(".card-title");
     nameElem.innerHTML = pokeArray[index].name;
     nameElem.innerHTML = pokeArray[index].name.toUpperCase();
+
+    const dexIdElem = card.querySelector(".dex-number");
+    dexIdElem.innerHTML = `National dex #${pokeArray[index].dexId}`;
 
     const imgElem = card.querySelector(`#icon-${index}`);
     imgElem.src = pokeArray[index].spriteUrl;
