@@ -48,23 +48,31 @@ function InitiateButtons(pokeArray) {
 
       console.log(pokemonName);
       let title = pokemonName.innerText;
+      console.log(title);
 
-      showDescription(title.toLowerCase());
+      showDescription(title.toLowerCase(), pokeArray);
     }
   });
 }
 
-async function showDescription(name) {
+async function showDescription(name, pokeArray) {
   const cards = document.querySelectorAll(".card");
   const cardText = document.querySelector(".card-description");
   const pokemonName = document.getElementById("pokemon-name");
-
+  const pokemonId = document.getElementById("pokemon-id");
+  const pokemonHeightandWeight = document.getElementById("pokemon-height-weight");
+  const pokemonImage = document.getElementById("icon");
 
   for (let card of cards) {
     const cardTitle = card.querySelector(".card-title");
+    console.log(cardTitle);
+    const cardImage = card.querySelector(".card-img-top");
+    const cardTypeCollection = card.querySelector(".type-collection");
 
     if (cardTitle.innerText.toLowerCase() === name) {
       pokemonName.innerText = cardTitle.innerText;
+      pokemonImage.src = cardImage.src;
+      
 
       cardText.innerText = await pokemon.GetPokemonDescription(name);
       console.log(cardText.innerText);
