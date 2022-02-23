@@ -12,17 +12,17 @@ async function PrintPokeCard(dexNumberStart, amount) {
   console.log(array); //TODO radera, enbart hjälp vid skapande av metod
   const cards = document.querySelectorAll(".card");
   for (let card of cards) {
-    const index = card.id.slice(5, 6) - 1; //TODO Fråga Sofiia om vi kan döpa om id för card så deras nummer är 0-5 istället för 1-6
+    const index = card.id.slice(5, 6);
     console.log(index);
 
     const nameElem = card.querySelector(".card-title");
     nameElem.innerHTML = array[index].name;
     nameElem.innerHTML = array[index].name.toUpperCase();
 
-    const imgElem = card.querySelector(`#icon-${index + 1}`); //TODO rätta index?
+    const imgElem = card.querySelector(`#icon-${index}`);
     imgElem.src = array[index].spriteUrl;
 
-    const priceElem = card.querySelector(".card-text"); //TODO skapa ett typeElem i index.html
+    const priceElem = card.querySelector(".type-collection"); //TODO skapa ett typeElem i index.html
     priceElem.innerHTML = `<div class="type ${
       array[index].typePrimary
     }">${array[index].typePrimary.toUpperCase()}</div>`;
