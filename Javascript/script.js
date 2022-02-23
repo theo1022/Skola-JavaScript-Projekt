@@ -54,7 +54,7 @@ async function showDescription(name) {
   const cards = document.querySelectorAll(".card");
   const cardText = document.querySelector(".card-description");
   const pokemonName = document.getElementById("pokemon-name");
-  //const respontest = ;
+
 
   for (let card of cards) {
     const cardTitle = card.querySelector(".card-title");
