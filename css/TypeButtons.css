@@ -1,7 +1,6 @@
-/*TODO Ändra så alla type blir samma width - funkar inte med vanlig width*/
-
-.card-img-top {
-  padding: 0.375rem 0.75rem;
+.dex-number {
+  font-weight: bold;
+  font-size: 0.75rem;
 }
 
 .card-title {
@@ -22,7 +21,7 @@
   padding: 0.375rem 0.75rem;
   border-radius: 0.25rem;
   color: white;
-  width: 75px;
+  width: 100px;
 }
 
 .normal {

@@ -2,7 +2,7 @@ import { Pokemon } from "./Pokemon.js";
 
 const pokemon = new Pokemon();
 
-Start(1, 6);
+Start(60, 6);
 
 async function Start(dexNumberStart, amount) {
   const pokeArray = await pokemon.GetPokemonArray(dexNumberStart, amount);
@@ -12,7 +12,7 @@ async function Start(dexNumberStart, amount) {
 
 function PrintPokeCard(pokeArray) {
   console.log(pokeArray); //TODO radera, enbart hjälp vid skapande av metod
-  const cards = document.querySelectorAll(".card");
+  const cards = document.querySelectorAll(".card-preview");
   for (let card of cards) {
     const index = card.id.slice(5, 6);
     console.log(index);
@@ -20,6 +20,9 @@ function PrintPokeCard(pokeArray) {
     const nameElem = card.querySelector(".card-title");
     nameElem.innerHTML = pokeArray[index].name;
     nameElem.innerHTML = pokeArray[index].name.toUpperCase();
+
+    const dexIdElem = card.querySelector(".dex-number");
+    dexIdElem.innerHTML = `National dex #${pokeArray[index].dexId}`;
 
     const imgElem = card.querySelector(`#icon-${index}`);
     imgElem.src = pokeArray[index].spriteUrl;
