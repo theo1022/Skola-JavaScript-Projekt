@@ -71,9 +71,21 @@ export class Pokemon {
     return pokemonObject;
   }
 
-  GetPokemonDescription(index) {
+  async GetPokemonDescription(index) {
     //TODO api anrop som hämtar specifik pokemons description genom flavorPath
     //TODO returns pokemon beskrivning genom falvor_text_entries
     //Sofiia
+
+    this.url.pathname = this.flavorPath + index;
+
+    let response = await fetch(this.url);
+
+    let description = await response.json();
+    console.log(description);
+    
+    let pokemonDescription = description.flavor_text_entries[0].flavor_text;
+
+    return pokemonDescription;
+   
   }
 }

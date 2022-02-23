@@ -34,7 +34,7 @@ h1{
 
 /*CARD-BUTTON*/
 
-.btn-read-more, .btn-add-to-cart{
+.btn-read-more, .btn-add-to-cart, .btn-read-less{
     color: #EFEFEF;
     font-weight: bold;
     background-color: #0F0E0E;
