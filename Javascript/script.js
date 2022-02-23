@@ -19,18 +19,17 @@ document.addEventListener("click", function (event) {
 
 async function showDescription(name) {
   const cards = document.querySelectorAll(".card");
-  const respontest = await pokemon.GetPokemonDescription(name);
+  const cardText = document.querySelector(".card-description");
+  const pokemonName = document.getElementById("pokemon-name");
+  //const respontest = ;
 
   for (let card of cards) {
     const cardTitle = card.querySelector(".card-title");
-    //card-title ska ändras mot card-description när modal ska skapas
-    const cardText = card.querySelector(".card-text");
 
     if (cardTitle.innerText.toLowerCase() === name) {
-      console.log(cardTitle.innerText);
-      console.log(cardTitle.id);
+      pokemonName.innerText = cardTitle.innerText;
 
-      cardText.innerText = respontest;
+      cardText.innerText = await pokemon.GetPokemonDescription(name);
       console.log(cardText.innerText);
     }
   }

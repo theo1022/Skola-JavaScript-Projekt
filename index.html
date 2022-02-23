@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <link
       rel="stylesheet"
       href="./node_modules/bootstrap-icons/font/bootstrap-icons.css"
     />
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./main.css">
+    
 </head>
 
 <body>
@@ -44,10 +46,10 @@
                     <div id="card-1" class="card">
                         <img id="icon-1" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 id="name-1" class="card-title">Card title</h5>
+                            <h5 id="name-1" class="card-title">Pikachu</h5>
                             <h5 id="pris-1" class="card-text"></h5>
                             <div class="button-group">
-                                <a id="read-more-1" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="read-more-1" href="#" class="btn btn-read-more"  data-bs-toggle="modal" data-bs-target="#card-modal">Read More</a>
                                 <a id="add-to-cart-1" href="#" class="btn btn-add-to-cart">Add to cart</a>
                             </div>
                            
@@ -59,10 +61,10 @@
                     <div id="card-2" class="card">
                         <img id="icon-2" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 id="name-2" class="card-title">Card title</h5>
+                            <h5 id="name-2" class="card-title">Bulbasaur</h5>
                             <h5 id="pris-2" class="card-text"></h5>
                             <div class="button-group">
-                                <a id="read-more-2" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="read-more-2" href="#" class="btn btn-read-more"  data-bs-toggle="modal" data-bs-target="#card-modal">Read More</a>
                                 <a id="add-to-cart-2" href="#" class="btn btn-add-to-cart">Add to cart</a>
                             </div>
                            
@@ -74,10 +76,10 @@
                     <div id="card-3" class="card">
                         <img id="icon-3" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 id="name-3" class="card-title">Card title</h5>
+                            <h5 id="name-3" class="card-title">Squirtle</h5>
                             <h5 id="pris-3" class="card-text"></h5>
                             <div class="button-group">
-                                <a id="read-more-3" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="read-more-3" href="#" class="btn btn-read-more"  data-bs-toggle="modal" data-bs-target="#card-modal"> Read More</a>
                                 <a id="add-to-cart-3" href="#" class="btn btn-add-to-cart">Add to cart</a>
                             </div>
                          
@@ -89,10 +91,10 @@
                     <div id="card-4" class="card">
                         <img id="icon-4" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 id="name-4" class="card-title">Card title</h5>
+                            <h5 id="name-4" class="card-title">Venusaur</h5>
                             <h5 id="pris-4" class="card-text"></h5>
                             <div class="button-group">
-                                <a id="read-more-4" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="read-more-4" href="#" class="btn btn-read-more"  data-bs-toggle="modal" data-bs-target="#card-modal">Read More</a>
                                 <a id="add-to-cart-4" href="#" class="btn btn-add-to-cart">Add to cart</a>
                             </div>
                            
@@ -107,7 +109,7 @@
                             <h5 id="name-5" class="card-title">Card title</h5>
                             <h5 id="pris-5" class="card-text"></h5>
                             <div class="button-group">
-                                <a id="read-more-5" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="read-more-5" href="#" class="btn btn-read-more"  data-bs-toggle="modal" data-bs-target="#card-modal">Read More</a>
                                 <a id="add-to-cart-5" href="#" class="btn btn-add-to-cart">Add to cart</a>
                             </div>
                            
@@ -122,7 +124,7 @@
                             <h5 id="name-6" class="card-title">Card title</h5>
                             <h5 id="pris-6" class="card-text"></h5>
                             <div class="button-group">
-                                <a id="read-more-6" href="#" class="btn btn-read-more">Read More</a>
+                                <a id="read-more-6" href="#" class="btn btn-read-more"  data-bs-toggle="modal" data-bs-target="#card-modal">Read More</a>
                                 <a id="add-to-cart-6" href="#" class="btn btn-add-to-cart">Add to cart</a>
                             </div>
                           
@@ -132,6 +134,26 @@
                 
             </div>
 
+        </section>
+        <section id="modal-section">
+            <div class="modal fade" id="card-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div id="card-1" class="card">
+                <img id="icon-1" src="pokemon-test-img.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 id="pokemon-name" class="card-title"></h5>
+                    <h4 id="pokemon-pris" class="card-text"></h4>
+                    <p id="pokemon-height-weight"></p>
+                    <p id="description-1" class="card-description"><p>
+                    <div class="button-group">
+                        <a type="button" id="read-less" href="#" class="btn btn-read-less" data-bs-dismiss="modal">Read Less</a>
+                        <a id="add-to-cart" href="#" class="btn btn-add-to-cart">Add to cart</a>
+                    </div>
+                   
+                </div>
+               </div>
+                </div> 
+               </div>
         </section>
     </main>
 
