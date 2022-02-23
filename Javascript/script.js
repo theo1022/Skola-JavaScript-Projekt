@@ -12,7 +12,7 @@ async function Start(dexNumberStart, amount) {
 
 function PrintPokeCard(pokeArray) {
   console.log(pokeArray); //TODO radera, enbart hjälp vid skapande av metod
-  const cards = document.querySelectorAll(".card");
+  const cards = document.querySelectorAll(".card-preview");
   for (let card of cards) {
     const index = card.id.slice(5, 6);
     console.log(index);
