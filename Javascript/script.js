@@ -22,7 +22,7 @@ async function PrintPokeCard(dexNumberStart, amount) {
     nameElem.innerHTML = array[index].name.toUpperCase();
 
     const imgElem = card.querySelector(`#icon-${index + 1}`); //TODO rätta index?
-    imgElem.src = array[index].spriteUrl; //TODO Ändra max storlek på bilden till 96*96
+    imgElem.src = array[index].spriteUrl;
 
     const priceElem = card.querySelector(".card-text"); //TODO skapa ett typeElem i index.html
     priceElem.innerHTML = `<div class="type ${

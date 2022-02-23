@@ -51,7 +51,7 @@ export class Pokemon {
           let pokemon = {
             dexId: object.id,
             name: object.name,
-            spriteUrl: object.sprites.front_default,
+            spriteUrl: object.sprites.other["official-artwork"].front_default,
             height: object.height * 10,
             weight: object.weight * 100,
             dualType: objectDualType,
