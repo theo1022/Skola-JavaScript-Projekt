@@ -19,9 +19,11 @@
     <header class="header">
         <h1>Poké Mart</h1>
         <div class="shoping-cart">
-            <button id="cart-btn"><i class="bi bi-cart-fill"></i></button>
+            <button id="cart-btn" data-bs-toggle="collapse" data-bs-target="#collapse-cart" aria-expanded="false" aria-controls="collapseWidthExample"><i class="bi bi-cart-fill"></i></button>
         </div>
+      <section id="collapse-section"></section>
     </header>
+    
     <main>
         <!--Pagination-->
         <div class="pagination d-flex justify-content-center">
@@ -149,6 +151,8 @@
             </div>
 
         </section>
+
+        <!--Modal-->
         <section id="modal-section">
             <div class="modal fade" id="card-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">

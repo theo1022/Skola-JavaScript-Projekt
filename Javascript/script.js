@@ -75,7 +75,7 @@ async function showDescription(name, pokeArray) {
     const cardTypeCollection = card.querySelector(".type-collection");
 
     if (cardTitle.innerText.toLowerCase() === name) {
-      
+
       pokemonName.innerText = cardTitle.innerText;
       pokemonId.innerHTML = "National dex # " + pokeArray[index].dexId;
       pokemonHeightandWeight.innerText = "Height: " + pokeArray[index].height + " cm" +"\n" + " Weight: " + pokeArray[index].weight + " g";
@@ -91,3 +91,69 @@ async function showDescription(name, pokeArray) {
     }
   }
 }
+
+document.addEventListener("click", function(event){
+let target = event.target;
+
+if (target.className == "btn btn-add-to-cart") {
+ const cardPreview = target.closest(".card-preview");
+ const cardImage = cardPreview.querySelector("img");
+ const cardTitle = cardPreview.querySelector(".card-title");
+
+
+createCartArray(cardImage, cardTitle);
+
+}
+
+
+});
+
+function createCart(){
+  const collapse = document.getElementById("collapse-section");
+  collapse.innerHTML = "";
+
+  const divCollapse = document.createElement("div");
+  divCollapse.className = "collapse collapse-horisontal";
+  divCollapse.id = "collapse-cart";
+  const divCardBody = document.createElement("div");
+  divCardBody.className = "card card-body";
+
+let storage = JSON.parse(localStorage.getItem("cartArray"));
+
+  for(let i = 0; i<storage.length; i++){ 
+  const divWrapper = document.createElement("div");
+  divWrapper.className = "wrapper-cart";
+  const collapseImg = document.createElement("img");
+  collapseImg.className = "collapse-image";
+  collapseImg.src = storage[i].img;
+  const collapseTitle = document.createElement("h5");
+  collapseTitle.innerText = storage[i].name;
+
+  divWrapper.append(collapseImg);
+  divWrapper.append(collapseTitle);
+  divCardBody.append(divWrapper);
+
+ 
+  
+  }
+  divCollapse.append(divCardBody);
+ 
+  collapse.append(divCollapse);
+
+}
+let cartArray = [];
+
+function createCartArray(image, title){
+  
+  let pokemonCart = {
+  name: title.innerText,
+  img: image.src
+  };
+  
+  
+  cartArray.push(pokemonCart);
+  console.log(cartArray);
+ localStorage.setItem("cartArray", JSON.stringify(cartArray));
+ 
+}
+createCart();

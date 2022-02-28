@@ -73,7 +73,7 @@ export class Pokemon {
 
   /**
    * 
-   * @param {string} index -the name of chosen pokemon which complete the patname for api-url
+   * @param {string} index -the name of chosen pokemon which complete the pathname for api-url
    * @returns {string} returns a string with flavor-text for chosen pokemon based on pokemon name
    */
 
