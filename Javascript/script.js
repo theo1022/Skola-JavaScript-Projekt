@@ -2,7 +2,7 @@ import { Pokemon } from "./Pokemon.js";
 
 const pokemon = new Pokemon();
 
-Start(60, 6);
+Start(1, 6);
 
 async function Start(dexNumberStart, amount) {
   const pokeArray = await pokemon.GetPokemonArray(dexNumberStart, amount);
@@ -73,4 +73,28 @@ async function showDescription(name) {
       console.log(cardText.innerText);
     }
   }
+}
+
+function GetStartIndex(number) {
+  console.log("GetStart number param = " + number);
+  const index = number * 6 - 5;
+  console.log("GetStart return = " + index);
+  return index;
+}
+
+const navNextElem = document.getElementById("nav-next");
+
+navNextElem.onclick = LoadNextBatch;
+
+//TODO currentPageNumber sparas i localStorage så att vid uppdatering så går vi inte tillbaka till sida 1
+function LoadNextBatch() {
+  const currentPageElem = document.querySelector("#nav-number-0 > a");
+  const currentPageNumber =
+    +document.querySelector("#nav-number-0 > a").innerHTML;
+  console.log(currentPageNumber);
+  const nextPage = currentPageNumber + 1;
+  const nextStartNumber = GetStartIndex(nextPage);
+  console.log(nextStartNumber);
+  Start(nextStartNumber, 6);
+  currentPageElem.innerHTML = nextPage;
 }
