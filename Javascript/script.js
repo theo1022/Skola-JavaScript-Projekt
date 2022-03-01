@@ -8,6 +8,7 @@ async function Start(dexNumberStart, amount) {
   const pokeArray = await pokemon.GetPokemonArray(dexNumberStart, amount);
   PrintPokeCard(pokeArray);
   InitiateButtons(pokeArray);
+  InitiatePagination();
 }
 
 function PrintPokeCard(pokeArray) {
@@ -75,26 +76,40 @@ async function showDescription(name) {
   }
 }
 
-function GetStartIndex(number) {
+function GetDexNumber(number) {
   console.log("GetStart number param = " + number);
   const index = number * 6 - 5;
   console.log("GetStart return = " + index);
   return index;
 }
 
-const navNextElem = document.getElementById("nav-next");
+function InitiatePagination() {
+  const navNextElem = document.getElementById("nav-next");
+  navNextElem.onclick = function () {
+    LoadNewBatch("next");
+  };
 
-navNextElem.onclick = LoadNextBatch;
+  const navPreviousElem = document.getElementById("nav-previous");
+  navPreviousElem.onclick = function () {
+    LoadNewBatch("previous");
+  };
+}
 
 //TODO currentPageNumber sparas i localStorage så att vid uppdatering så går vi inte tillbaka till sida 1
-function LoadNextBatch() {
+function LoadNewBatch(direction) {
   const currentPageElem = document.querySelector("#nav-number-0 > a");
   const currentPageNumber =
     +document.querySelector("#nav-number-0 > a").innerHTML;
-  console.log(currentPageNumber);
-  const nextPage = currentPageNumber + 1;
-  const nextStartNumber = GetStartIndex(nextPage);
-  console.log(nextStartNumber);
-  Start(nextStartNumber, 6);
-  currentPageElem.innerHTML = nextPage;
+
+  if (direction === "previous" && currentPageNumber === 1) return;
+
+  let newPageNumber = currentPageNumber;
+
+  if (direction === "next") newPageNumber++;
+  if (direction === "previous") newPageNumber--;
+
+  const dexNumberStart = GetDexNumber(newPageNumber);
+
+  Start(dexNumberStart, 6);
+  currentPageElem.innerHTML = newPageNumber;
 }
