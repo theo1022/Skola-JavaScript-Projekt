@@ -39,7 +39,7 @@ export class Pokemon {
     const localUrl = this.url;
 
     let pokemonObject = [];
-
+    //TODO skriv om så en fetch lagras som en promise och sedan används för att kunna göra try catch satser för att fånga upp responses som inte är OK med response.ok
     for (let i = 0; i < amount - 1 + 1; i++) {
       localUrl.pathname = this.spritePath + (dexNumberStart + i);
 
