@@ -40,6 +40,8 @@ export class Pokemon {
 
     let pokemonObject = [];
     //TODO skriv om så en fetch lagras som en promise och sedan används för att kunna göra try catch satser för att fånga upp responses som inte är OK med response.ok
+    //TODO skriv om så att namnet som hämtas är species.name för att inte få med vilken form
+    //TODO fixa så att nidoran får tecken istället för "-f" och "-m"
     for (let i = 0; i < amount - 1 + 1; i++) {
       localUrl.pathname = this.spritePath + (dexNumberStart + i);
 
@@ -72,7 +74,7 @@ export class Pokemon {
   }
 
   /**
-   * 
+   *
    * @param {string} index -the name of chosen pokemon which complete the pathname for api-url
    * @returns {string} returns a string with flavor-text for chosen pokemon based on pokemon name
    */
@@ -89,12 +91,9 @@ export class Pokemon {
     let pokemonDescriptionText;
 
     for (let i = 0; i < pokemonDescription.length; i++) {
-
       if (pokemonDescription[i].language.name === "en") {
-
         console.log(pokemonDescription[i].language.name);
         pokemonDescriptionText = pokemonDescription[i].flavor_text;
-
       }
     }
 
