@@ -1,12 +1,7 @@
 import { Pokemon } from "./Pokemon.js";
 
 const pokemon = new Pokemon();
-let storage = JSON.parse(localStorage.getItem("cartArray"));
 
-if (storage != null) {
-  createCart();
-  console.log(storage);
-}
 
 PageSetup();
 
@@ -57,23 +52,6 @@ function PrintPokeCard(pokeArray) {
   }
 }
 
-function InitiateButtons(pokeArray) {
-  document.addEventListener("click", function (event) {
-    let target = event.target;
-
-    if (target.className == "btn btn-read-more") {
-      let pokemonName = target
-        .closest(".card-body")
-        .querySelector("h5.card-title");
-
-      console.log(pokemonName);
-      let title = pokemonName.innerText;
-      console.log(title);
-
-      showDescription(title.toLowerCase(), pokeArray);
-    }
-  });
-}
 
 async function showDescription(name, pokeArray) {
   const cards = document.querySelectorAll(".card-preview");
@@ -116,31 +94,12 @@ async function showDescription(name, pokeArray) {
   }
 }
 
-document.addEventListener("click", function (event) {
-  let target = event.target;
-
-  if (target.className == "btn btn-add-to-cart") {
-    const cardPreview = target.closest(".card");
-    const cardImage = cardPreview.querySelector("img");
-    console.log(cardImage);
-    const cardTitle = cardPreview.querySelector(".card-title");
-    let storage = JSON.parse(localStorage.getItem("cartArray"));
-
-    if (storage.length != 6) {
-      addToCart(cardTitle, cardImage);
-      createCart();
-    } else {
-      alert("Limit is 6 cards");
-    }
-  }
-});
-
 function createCart() {
   const collapse = document.getElementById("collapse-section");
   collapse.innerHTML = "";
 
   const divCollapse = document.createElement("div");
-  divCollapse.className = "collapse.show collapse-horisontal";
+  divCollapse.className = "collapse collapse-horisontal";
   divCollapse.id = "collapse-cart";
 
   const divCardBody = document.createElement("div");
@@ -170,12 +129,17 @@ function createCart() {
     collapseTitle.innerText = storage[i].name;
     collapseTitle.id = i;
 
+    const readMoreDiv = document.createElement("div");
+    const readMoreBtn = document.createElement("button");
+    readMoreBtn.innerText = "Read more";
+
     divButton.append(deleteBtn);
     deleteBtn.append(deleteIcon);
     divWrapper.append(collapseImg);
     divTitle.append(collapseTitle);
     divWrapper.append(divTitle);
     divWrapper.append(divButton);
+    divWrapper.append(readMoreDiv);
     divCardBody.append(divWrapper);
     divCollapse.append(divCardBody);
 
@@ -183,47 +147,80 @@ function createCart() {
   }
 }
 
-function addToCart(title, image) {
-  let storage = JSON.parse(localStorage.getItem("cartArray"));
-  let cartArray;
 
-  if (storage === null) {
-    cartArray = [];
-  } else {
-    cartArray = storage;
-  }
-  let pokemonCart = {
-    name: title.innerText,
-    img: image.src,
-  };
+function InitiateButtons(pokeArray) {
+  document.addEventListener("click", function (event) {
+    let target = event.target;
 
-  cartArray.push(pokemonCart);
-  console.log(cartArray);
-  localStorage.setItem("cartArray", JSON.stringify(cartArray));
+    if (target.className == "btn btn-read-more") {
+      let pokemonName = target
+        .closest(".card-body")
+        .querySelector("h5.card-title");
+
+      console.log(pokemonName);
+      let title = pokemonName.innerText;
+      console.log(title);
+
+      showDescription(title.toLowerCase(), pokeArray);
+    }
+  });
 }
 
 document.addEventListener("click", function (event) {
-  const target = event.target;
+  let target = event.target;
+
+  if (target.className == "btn btn-add-to-cart") {
+    const cardPreview = target.closest(".card");
+    const cardImage = cardPreview.querySelector("img").src;
+    console.log(cardImage);
+    const cardTitle = cardPreview.querySelector(".card-title").innerText;
+    let storage = JSON.parse(localStorage.getItem("cartArray"));
+   
+
+    if ( storage === null || storage.length != 6 ) {
+      pokemon.addToCart(cardTitle, cardImage);
+      createCart();
+    } else {
+      alert("Limit is 6 cards");
+    }
+
+ 
+  }
+  if(target.className === "bi bi-cart-fill"){
+    const collapseSection = document.querySelector("#collapse-section");
+    const cartButton = document.querySelector("#cart-btn");
+    let storage = JSON.parse(localStorage.getItem("cartArray"));
+/*
+    if (storage != null) {
+      createCart();
+      console.log(storage);
+    }
+ 
+    if(collapseSection.innerHTML === ""){
+      alert("Cart is empty!");
+    }
+    
+   */
+
+
+    
+  }
   if (target.className != "bi bi-x-square") {
     return;
   }
   let collapseContainer = target.closest(".wrapper-cart");
   console.log(collapseContainer);
 
-  let getTitle = collapseContainer.querySelector("h5.pokemon-title");
+  let getTitle = collapseContainer.querySelector("h5.pokemon-title").id;
 
   collapseContainer.remove();
-  deleteFromCart(getTitle.id);
+  pokemon.deleteFromCart(getTitle);
   createCart();
+
 });
 
-function deleteFromCart(id) {
-  let storage = JSON.parse(localStorage.getItem("cartArray"));
 
-  storage.splice(id, 1);
-  console.log(storage);
-  localStorage.setItem("cartArray", JSON.stringify(storage));
-}
+
 
 //TODO lägg till en maxgräns för när knappen inte längre ska göra något
 //TODO melmetal #809 är sista pokemon i gen 7. Api:n säger själv att gen 8 kan ha buggar. Sätt stopp så inga pokemon efter #809 kan hämtas ut? (sida 135)
