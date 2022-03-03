@@ -39,37 +39,30 @@ export class Pokemon {
     const localUrl = this.url;
 
     let pokemonObject = [];
-    //TODO skriv om så en fetch lagras som en promise och sedan används för att kunna göra try catch satser för att fånga upp responses som inte är OK med response.ok
-    //TODO skriv om så att namnet som hämtas är species.name för att inte få med vilken form
-    //TODO fixa så att nidoran får tecken istället för "-f" och "-m"
-    for (let i = 0; i < amount - 1 + 1; i++) {
+
+    for (let i = 0; pokemonObject.length < amount - 1 + 1; i++) {
       localUrl.pathname = this.spritePath + (dexNumberStart + i);
 
-      await fetch(localUrl)
-        .then((response) => response.json())
-        .then((object) => {
-          const objectDualType = object.types.length === 2;
+      let response = await fetch(localUrl);
 
-          let pokemon = {
-            dexId: object.id,
-            name: object.name,
-            spriteUrl: object.sprites.other["official-artwork"].front_default,
-            height: object.height * 10,
-            weight: object.weight * 100,
-            dualType: objectDualType,
-            typePrimary: object.types[0].type.name,
-          };
+      const object = await response.json();
 
-          if (objectDualType)
-            pokemon[`typeSecondary`] = object.types[1].type.name;
+      const objectDualType = object.types.length === 2;
 
-          pokemonObject.push(pokemon);
-          return object;
-        });
+      let pokemon = {
+        dexId: object.id,
+        name: object.species.name,
+        spriteUrl: object.sprites.other["official-artwork"].front_default,
+        height: object.height * 10,
+        weight: object.weight * 100,
+        dualType: objectDualType,
+        typePrimary: object.types[0].type.name,
+      };
+
+      if (objectDualType) pokemon[`typeSecondary`] = object.types[1].type.name;
+
+      pokemonObject.push(pokemon);
     }
-
-    pokemonObject.sort((a, b) => a.dexId - b.dexId);
-    console.log(pokemonObject); //TODO radera, enbart hjälp vid skapande av metod
     return pokemonObject;
   }
 

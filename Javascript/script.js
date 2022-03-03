@@ -35,6 +35,7 @@ function PrintPokeCard(pokeArray) {
     const imgElem = card.querySelector(`#icon-${index}`);
     imgElem.src = pokeArray[index].spriteUrl;
     imgElem.alt = nameElem.innerHTML + " official artwork";
+    imgElem.classList.remove("unown");
 
     const typeCollectionElem = card.querySelector(".type-collection");
     typeCollectionElem.innerHTML = `<div class="type ${
