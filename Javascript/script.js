@@ -2,7 +2,6 @@ import { Pokemon } from "./Pokemon.js";
 
 const pokemon = new Pokemon();
 
-
 PageSetup();
 
 function PageSetup() {
@@ -49,7 +48,6 @@ function PrintPokeCard(pokeArray) {
     }
   }
 }
-
 
 async function showDescription(name, pokeArray) {
   const cards = document.querySelectorAll(".card-preview");
@@ -132,9 +130,8 @@ function createCart() {
     const readMoreBtn = document.createElement("a");
     readMoreBtn.className = "btn btn-read-more-cart";
     readMoreBtn.innerText = "Read more";
-    readMoreBtn.setAttribute("data-bs-toggle","modal");
-    readMoreBtn.setAttribute("data-bs-target","#card-modal");
-   
+    readMoreBtn.setAttribute("data-bs-toggle", "modal");
+    readMoreBtn.setAttribute("data-bs-target", "#card-modal");
 
     readMoreDiv.append(readMoreBtn);
     divButton.append(deleteBtn);
@@ -143,7 +140,7 @@ function createCart() {
     divTitle.append(collapseTitle);
     divTitle.append(deleteBtn);
     divWrapper.append(divTitle);
-   // divWrapper.append(divButton);
+    // divWrapper.append(divButton);
     divWrapper.append(readMoreDiv);
     divCardBody.append(divWrapper);
     divCollapse.append(divCardBody);
@@ -151,7 +148,6 @@ function createCart() {
     collapse.append(divCollapse);
   }
 }
-
 
 function InitiateButtons(pokeArray) {
   document.addEventListener("click", function (event) {
@@ -161,17 +157,17 @@ function InitiateButtons(pokeArray) {
       let pokemonName = target
         .closest(".card-body")
         .querySelector("h5.card-title");
-        let title = pokemonName.innerText;
-     
-        showDescription(title.toLowerCase(), pokeArray);
+      let title = pokemonName.innerText;
 
-    }if(target.className === "btn btn-read-more-cart"){
+      showDescription(title.toLowerCase(), pokeArray);
+    }
+    if (target.className === "btn btn-read-more-cart") {
       let pokemonName = target
-      .closest(".wrapper-cart")
-      .querySelector("h5.pokemon-title");
+        .closest(".wrapper-cart")
+        .querySelector("h5.pokemon-title");
       console.log(pokemonName);
       let title = pokemonName.innerText;
-    
+
       showDescription(title.toLowerCase(), pokeArray);
     }
   });
@@ -185,30 +181,25 @@ document.addEventListener("click", function (event) {
     const cardImage = cardPreview.querySelector("img").src;
     const cardTitle = cardPreview.querySelector(".card-title").innerText;
     let storage = JSON.parse(localStorage.getItem("cartArray"));
-   
 
-    if ( storage === null || storage.length != 6 ) {
+    if (storage === null || storage.length != 6) {
       pokemon.addToCart(cardTitle, cardImage);
       createCart();
     } else {
       alert("Limit is 6 cards");
     }
-
- 
   }
-  if(target.className === "bi bi-cart-fill"){
+  if (target.className === "bi bi-cart-fill") {
     const collapseSection = document.querySelector("#collapse-section");
     let storage = JSON.parse(localStorage.getItem("cartArray"));
 
     if (storage != null) {
       createCart();
-  
     }
- 
-    if(collapseSection.innerHTML === ""){
+
+    if (collapseSection.innerHTML === "") {
       alert("Cart is empty!");
     }
-    
   }
   if (target.className != "bi bi-x-square") {
     return;
@@ -219,9 +210,7 @@ document.addEventListener("click", function (event) {
   collapseContainer.remove();
   pokemon.deleteFromCart(getTitle);
   createCart();
-
 });
-
 
 function LoadNewBatch(direction, steps) {
   const currentPageNumber =
