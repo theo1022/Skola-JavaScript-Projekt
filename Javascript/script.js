@@ -171,12 +171,23 @@ function LoadNewBatch(direction) {
   const currentPageNumber =
     +document.querySelector("#nav-number-0 > a").innerHTML;
 
-  if (direction === "previous" && currentPageNumber === 1) return;
+  if (
+    (direction === "previous" || direction === "first") &&
+    currentPageNumber === 1
+  )
+    return;
+  if (
+    (direction === "next" || direction === "last") &&
+    currentPageNumber === 135
+  )
+    return;
 
   let newPageNumber = currentPageNumber;
 
+  if (direction === "first") newPageNumber = 1;
   if (direction === "next") newPageNumber++;
   if (direction === "previous") newPageNumber--;
+  if (direction === "last") newPageNumber = 135;
 
   const dexNumberStart = GetDexNumber(newPageNumber);
 
@@ -193,13 +204,19 @@ function GetDexNumber(number) {
 }
 
 function InitiatePagination() {
-  const navNextElem = document.getElementById("nav-next");
-  navNextElem.onclick = function () {
+  document.getElementById("nav-first").onclick = function () {
+    LoadNewBatch("first");
+  };
+
+  document.getElementById("nav-next").onclick = function () {
     LoadNewBatch("next");
   };
 
-  const navPreviousElem = document.getElementById("nav-previous");
-  navPreviousElem.onclick = function () {
+  document.getElementById("nav-previous").onclick = function () {
     LoadNewBatch("previous");
+  };
+
+  document.getElementById("nav-last").onclick = function () {
+    LoadNewBatch("last");
   };
 }
