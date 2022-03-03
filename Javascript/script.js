@@ -151,6 +151,7 @@ function createCart() {
     deleteBtn.className = "deleteBtn";
     const deleteIcon = document.createElement("i");
     deleteIcon.className = "bi bi-x-square";
+    
 
     const collapseImg = document.createElement("img");
     collapseImg.className = "collapse-image";
@@ -159,7 +160,9 @@ function createCart() {
     divTitle.className = "title-pokemonname";
 
     const collapseTitle = document.createElement("h5");
+    collapseTitle.className = "pokemon-title";
     collapseTitle.innerText = storage[i].name;
+    collapseTitle.id = i;
 
     divButton.append(deleteBtn);
     deleteBtn.append(deleteIcon);
@@ -200,8 +203,31 @@ let cartArray;
   localStorage.setItem("cartArray", JSON.stringify(cartArray));
 }
 
- 
+document.addEventListener("click", function(event){
 
+  const target = event.target;
+  if(target.className !="bi bi-x-square"){
+    return;
+  }
+  let collapseContainer = target.closest(".wrapper-cart");
+  console.log(collapseContainer);
+ 
+  let getTitle = collapseContainer.querySelector("h5.pokemon-title");
+  
+  collapseContainer.remove();
+  deleteFromCart(getTitle.id);
+  createCart();
+
+});
+
+function deleteFromCart(id){
+  let storage = JSON.parse(localStorage.getItem("cartArray"));
+
+    storage.splice(id, 1);
+    console.log(storage);
+    localStorage.setItem("cartArray", JSON.stringify(storage));
+
+  }
 
 
 //TODO lägg till en maxgräns för när knappen inte längre ska göra något
