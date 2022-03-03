@@ -8,7 +8,8 @@ PageSetup();
 function PageSetup() {
   let pageNumberOnStart = localStorage.getItem("pageNumber");
   if (pageNumberOnStart === null) pageNumberOnStart = 1;
-  document.querySelector("#nav-number-0 > a").innerHTML = pageNumberOnStart;
+
+  UppdatePagination(pageNumberOnStart);
   InitiatePagination();
 
   Start(GetDexNumber(pageNumberOnStart), 6);
@@ -21,13 +22,10 @@ async function Start(dexNumberStart, amount) {
 }
 
 function PrintPokeCard(pokeArray) {
-  console.log(pokeArray); //TODO radera, enbart hjälp vid skapande av metod
-
   const cards = document.querySelectorAll(".card-preview");
 
   for (let card of cards) {
     const index = card.id.slice(5, 6);
-    console.log(index);
 
     const nameElem = card.querySelector(".card-title");
     nameElem.innerHTML = pokeArray[index].name.toUpperCase();
@@ -220,44 +218,120 @@ document.addEventListener("click", function (event) {
 });
 
 
-
-
-//TODO lägg till en maxgräns för när knappen inte längre ska göra något
-//TODO melmetal #809 är sista pokemon i gen 7. Api:n säger själv att gen 8 kan ha buggar. Sätt stopp så inga pokemon efter #809 kan hämtas ut? (sida 135)
-function LoadNewBatch(direction) {
-  const currentPageElem = document.querySelector("#nav-number-0 > a");
+function LoadNewBatch(direction, steps) {
   const currentPageNumber =
-    +document.querySelector("#nav-number-0 > a").innerHTML;
+    +document.querySelector("#nav-current > a").innerHTML;
 
-  if (direction === "previous" && currentPageNumber === 1) return;
+  if (
+    ((direction === "previous" || direction === "first") &&
+      currentPageNumber === 1) ||
+    ((direction === "next" || direction === "last") &&
+      currentPageNumber === 135)
+  )
+    return;
 
   let newPageNumber = currentPageNumber;
 
+  if (direction === "first") newPageNumber = 1;
   if (direction === "next") newPageNumber++;
   if (direction === "previous") newPageNumber--;
+  if (direction === "last") newPageNumber = 135;
+  if (direction == "step") newPageNumber += +steps;
 
   const dexNumberStart = GetDexNumber(newPageNumber);
 
   Start(dexNumberStart, 6);
-  currentPageElem.innerHTML = newPageNumber;
   localStorage.setItem("pageNumber", newPageNumber);
+
+  UppdatePagination(newPageNumber);
+}
+
+function UppdatePagination(currentPage) {
+  const minus3Elem = document.querySelector("#nav-minus-3 > a");
+  const minus2Elem = document.querySelector("#nav-minus-2 > a");
+  const minus1Elem = document.querySelector("#nav-minus-1 > a");
+  const currentElem = document.querySelector("#nav-current > a");
+  const plus1Elem = document.querySelector("#nav-plus-1 > a");
+  const plus2Elem = document.querySelector("#nav-plus-2 > a");
+  const plus3Elem = document.querySelector("#nav-plus-3 > a");
+
+  minus3Elem.innerHTML = +currentPage - 3;
+  minus2Elem.innerHTML = +currentPage - 2;
+  minus1Elem.innerHTML = +currentPage - 1;
+  currentElem.innerHTML = +currentPage;
+  plus1Elem.innerHTML = +currentPage + 1;
+  plus2Elem.innerHTML = +currentPage + 2;
+  plus3Elem.innerHTML = +currentPage + 3;
+
+  //TODO bryt ut till egen funktion som tar in element eller gör till loop???
+  if (minus3Elem.innerHTML < 1) {
+    minus3Elem.classList.add("hide-element");
+  } else {
+    minus3Elem.classList.remove("hide-element");
+  }
+
+  if (minus2Elem.innerHTML < 1) {
+    minus2Elem.classList.add("hide-element");
+  } else {
+    minus2Elem.classList.remove("hide-element");
+  }
+
+  if (minus1Elem.innerHTML < 1) {
+    minus1Elem.classList.add("hide-element");
+  } else {
+    minus1Elem.classList.remove("hide-element");
+  }
+  if (plus1Elem.innerHTML > 135) {
+    plus1Elem.classList.add("hide-element");
+  } else {
+    plus1Elem.classList.remove("hide-element");
+  }
+
+  if (plus2Elem.innerHTML > 135) {
+    plus2Elem.classList.add("hide-element");
+  } else {
+    plus2Elem.classList.remove("hide-element");
+  }
+
+  if (plus3Elem.innerHTML > 135) {
+    plus3Elem.classList.add("hide-element");
+  } else {
+    plus3Elem.classList.remove("hide-element");
+  }
 }
 
 function GetDexNumber(number) {
-  console.log("GetStart number param = " + number);
   const index = number * 6 - 5;
-  console.log("GetStart return = " + index);
+
   return index;
 }
 
 function InitiatePagination() {
-  const navNextElem = document.getElementById("nav-next");
-  navNextElem.onclick = function () {
+  document.getElementById("nav-first").onclick = function () {
+    LoadNewBatch("first");
+  };
+
+  document.getElementById("nav-previous").onclick = function () {
+    LoadNewBatch("previous");
+  };
+
+  document.getElementById("nav-next").onclick = function () {
     LoadNewBatch("next");
   };
 
-  const navPreviousElem = document.getElementById("nav-previous");
-  navPreviousElem.onclick = function () {
-    LoadNewBatch("previous");
+  document.getElementById("nav-last").onclick = function () {
+    LoadNewBatch("last");
   };
+
+  const pageNumbers = document.querySelectorAll(".page-number");
+
+  for (let number of pageNumbers) {
+    number.addEventListener("click", function (clickedElem) {
+      const currentPage = +document.querySelector("#nav-current > a").innerHTML;
+      const clickedPage = +clickedElem.target.closest(".page-link").innerHTML;
+      const steps = clickedPage - currentPage;
+
+      LoadNewBatch("step", steps);
+    });
+  }
 }
