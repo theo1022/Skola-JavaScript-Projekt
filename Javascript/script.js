@@ -97,7 +97,7 @@ function createCart() {
   collapse.innerHTML = "";
 
   const divCollapse = document.createElement("div");
-  divCollapse.className = "collapse collapse-horisontal";
+  divCollapse.className = "collapse.show collapse-horisontal";
   divCollapse.id = "collapse-cart";
 
   const divCardBody = document.createElement("div");
@@ -120,7 +120,7 @@ function createCart() {
     collapseImg.src = storage[i].img;
 
     const divTitle = document.createElement("div");
-    divTitle.className = "title-pokemonname";
+    divTitle.className = "title-pokemon";
 
     const collapseTitle = document.createElement("h5");
     collapseTitle.className = "pokemon-title";
@@ -128,9 +128,14 @@ function createCart() {
     collapseTitle.id = i;
 
     const readMoreDiv = document.createElement("div");
-    const readMoreBtn = document.createElement("button");
+    const readMoreBtn = document.createElement("a");
+    readMoreBtn.className = "btn btn-read-more-cart";
     readMoreBtn.innerText = "Read more";
+    readMoreBtn.setAttribute("data-bs-toggle","modal");
+    readMoreBtn.setAttribute("data-bs-target","#card-modal");
+   
 
+    readMoreDiv.append(readMoreBtn);
     divButton.append(deleteBtn);
     deleteBtn.append(deleteIcon);
     divWrapper.append(collapseImg);
@@ -155,6 +160,15 @@ function InitiateButtons(pokeArray) {
         .closest(".card-body")
         .querySelector("h5.card-title");
 
+      
+      let title = pokemonName.innerText;
+     
+      showDescription(title.toLowerCase(), pokeArray);
+
+    }if(target.className === "btn btn-read-more-cart"){
+      let pokemonName = target
+      .closest(".wrapper-cart")
+      .querySelector("h5.pokemon-title");
       console.log(pokemonName);
       let title = pokemonName.innerText;
       console.log(title);
@@ -188,7 +202,7 @@ document.addEventListener("click", function (event) {
     const collapseSection = document.querySelector("#collapse-section");
     const cartButton = document.querySelector("#cart-btn");
     let storage = JSON.parse(localStorage.getItem("cartArray"));
-/*
+
     if (storage != null) {
       createCart();
       console.log(storage);
@@ -197,10 +211,6 @@ document.addEventListener("click", function (event) {
     if(collapseSection.innerHTML === ""){
       alert("Cart is empty!");
     }
-    
-   */
-
-
     
   }
   if (target.className != "bi bi-x-square") {
