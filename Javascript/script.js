@@ -3,7 +3,7 @@ import { Pokemon } from "./Pokemon.js";
 const pokemon = new Pokemon();
 let storage = JSON.parse(localStorage.getItem("cartArray"));
 
-if(storage!=null){
+if (storage != null) {
   createCart();
   console.log(storage);
 }
@@ -126,14 +126,12 @@ document.addEventListener("click", function (event) {
     const cardTitle = cardPreview.querySelector(".card-title");
     let storage = JSON.parse(localStorage.getItem("cartArray"));
 
-if(storage.length != 6){
-  addToCart(cardTitle,cardImage);
-  createCart();
-
-}else{
-  alert("Limit is 6 cards");
-}
- 
+    if (storage.length != 6) {
+      addToCart(cardTitle, cardImage);
+      createCart();
+    } else {
+      alert("Limit is 6 cards");
+    }
   }
 });
 
@@ -144,26 +142,26 @@ function createCart() {
   const divCollapse = document.createElement("div");
   divCollapse.className = "collapse.show collapse-horisontal";
   divCollapse.id = "collapse-cart";
+
   const divCardBody = document.createElement("div");
   divCardBody.className = "card card-body";
 
   let storage = JSON.parse(localStorage.getItem("cartArray"));
+
   for (let i = 0; i < storage.length; i++) {
- 
     const divWrapper = document.createElement("div");
     divWrapper.className = "wrapper-cart";
 
     const divButton = document.createElement("div");
-  
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "deleteBtn";
     const deleteIcon = document.createElement("i");
     deleteIcon.className = "bi bi-x-square";
-    
 
     const collapseImg = document.createElement("img");
     collapseImg.className = "collapse-image";
     collapseImg.src = storage[i].img;
+
     const divTitle = document.createElement("div");
     divTitle.className = "title-pokemonname";
 
@@ -182,28 +180,20 @@ function createCart() {
     divCollapse.append(divCardBody);
 
     collapse.append(divCollapse);
-  
   }
- 
 }
 
-  
-function addToCart(title, image){
-  
+function addToCart(title, image) {
   let storage = JSON.parse(localStorage.getItem("cartArray"));
-let cartArray;
+  let cartArray;
 
-  if(storage === null){
-
-     cartArray = [];
-
-  }else{
-
+  if (storage === null) {
+    cartArray = [];
+  } else {
     cartArray = storage;
-
   }
   let pokemonCart = {
-    name: title.innerText, 
+    name: title.innerText,
     img: image.src,
   };
 
@@ -212,32 +202,28 @@ let cartArray;
   localStorage.setItem("cartArray", JSON.stringify(cartArray));
 }
 
-document.addEventListener("click", function(event){
-
+document.addEventListener("click", function (event) {
   const target = event.target;
-  if(target.className !="bi bi-x-square"){
+  if (target.className != "bi bi-x-square") {
     return;
   }
   let collapseContainer = target.closest(".wrapper-cart");
   console.log(collapseContainer);
- 
+
   let getTitle = collapseContainer.querySelector("h5.pokemon-title");
-  
+
   collapseContainer.remove();
   deleteFromCart(getTitle.id);
   createCart();
-
 });
 
-function deleteFromCart(id){
+function deleteFromCart(id) {
   let storage = JSON.parse(localStorage.getItem("cartArray"));
 
-    storage.splice(id, 1);
-    console.log(storage);
-    localStorage.setItem("cartArray", JSON.stringify(storage));
-
-  }
-
+  storage.splice(id, 1);
+  console.log(storage);
+  localStorage.setItem("cartArray", JSON.stringify(storage));
+}
 
 //TODO lägg till en maxgräns för när knappen inte längre ska göra något
 //TODO melmetal #809 är sista pokemon i gen 7. Api:n säger själv att gen 8 kan ha buggar. Sätt stopp så inga pokemon efter #809 kan hämtas ut? (sida 135)
