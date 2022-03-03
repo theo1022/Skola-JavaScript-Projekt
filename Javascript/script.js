@@ -120,7 +120,7 @@ function createCart() {
     collapseImg.src = storage[i].img;
 
     const divTitle = document.createElement("div");
-    divTitle.className = "title-pokemon";
+    divTitle.className = "title-img-warpper";
 
     const collapseTitle = document.createElement("h5");
     collapseTitle.className = "pokemon-title";
@@ -128,6 +128,7 @@ function createCart() {
     collapseTitle.id = i;
 
     const readMoreDiv = document.createElement("div");
+    readMoreDiv.className = "button-wrapper";
     const readMoreBtn = document.createElement("a");
     readMoreBtn.className = "btn btn-read-more-cart";
     readMoreBtn.innerText = "Read more";
@@ -138,10 +139,11 @@ function createCart() {
     readMoreDiv.append(readMoreBtn);
     divButton.append(deleteBtn);
     deleteBtn.append(deleteIcon);
-    divWrapper.append(collapseImg);
+    divTitle.append(collapseImg);
     divTitle.append(collapseTitle);
+    divTitle.append(deleteBtn);
     divWrapper.append(divTitle);
-    divWrapper.append(divButton);
+   // divWrapper.append(divButton);
     divWrapper.append(readMoreDiv);
     divCardBody.append(divWrapper);
     divCollapse.append(divCardBody);
@@ -159,11 +161,9 @@ function InitiateButtons(pokeArray) {
       let pokemonName = target
         .closest(".card-body")
         .querySelector("h5.card-title");
-
-      
-      let title = pokemonName.innerText;
+        let title = pokemonName.innerText;
      
-      showDescription(title.toLowerCase(), pokeArray);
+        showDescription(title.toLowerCase(), pokeArray);
 
     }if(target.className === "btn btn-read-more-cart"){
       let pokemonName = target
@@ -171,8 +171,7 @@ function InitiateButtons(pokeArray) {
       .querySelector("h5.pokemon-title");
       console.log(pokemonName);
       let title = pokemonName.innerText;
-      console.log(title);
-
+    
       showDescription(title.toLowerCase(), pokeArray);
     }
   });
@@ -184,7 +183,6 @@ document.addEventListener("click", function (event) {
   if (target.className == "btn btn-add-to-cart") {
     const cardPreview = target.closest(".card");
     const cardImage = cardPreview.querySelector("img").src;
-    console.log(cardImage);
     const cardTitle = cardPreview.querySelector(".card-title").innerText;
     let storage = JSON.parse(localStorage.getItem("cartArray"));
    
@@ -200,12 +198,11 @@ document.addEventListener("click", function (event) {
   }
   if(target.className === "bi bi-cart-fill"){
     const collapseSection = document.querySelector("#collapse-section");
-    const cartButton = document.querySelector("#cart-btn");
     let storage = JSON.parse(localStorage.getItem("cartArray"));
 
     if (storage != null) {
       createCart();
-      console.log(storage);
+  
     }
  
     if(collapseSection.innerHTML === ""){
@@ -217,8 +214,6 @@ document.addEventListener("click", function (event) {
     return;
   }
   let collapseContainer = target.closest(".wrapper-cart");
-  console.log(collapseContainer);
-
   let getTitle = collapseContainer.querySelector("h5.pokemon-title").id;
 
   collapseContainer.remove();

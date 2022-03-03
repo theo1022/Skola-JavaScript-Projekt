@@ -118,11 +118,12 @@ h1 {
 }
 
 .wrapper-cart{
-    display: flex;
+
     justify-content: space-around;
     text-align: center;
     box-shadow: 0 0 8px 0 rgb(0 0 0 / 8%), 0 0 15px 0 rgb(0 0 0 / 2%), 0 0 20px 4px rgb(0 0 0 / 6%);
     padding: 0.7rem;
+    border-radius: 8px;
 }
 .card.card-body{
     display: grid;
@@ -133,6 +134,8 @@ h1 {
 .deleteBtn {
     background: none;
     border: none;
+    display:flex;
+    justify-content: flex-end;
   }
 
   .bi-x-square{
@@ -140,5 +143,20 @@ h1 {
   }
  
   h5.pokemon-title{
-     margin-top: 2rem;
+     display: flex;
+     align-items: center;
+  }
+
+  .title-img-warpper{
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .button-wrapper{
+    justify-content: flex-end;
+    display: flex
+  }
+
+  .btn-read-more-cart:hover{
+      color: #FFC300;
   }
