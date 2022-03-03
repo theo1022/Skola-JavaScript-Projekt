@@ -239,7 +239,7 @@ function UppdatePagination(currentPage) {
   }
 
   if (plus3Elem.innerHTML > 135) {
-    plus2Elem.classList.add("hide-element");
+    plus3Elem.classList.add("hide-element");
   } else {
     plus3Elem.classList.remove("hide-element");
   }
