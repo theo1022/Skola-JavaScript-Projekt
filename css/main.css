@@ -127,4 +127,10 @@ h1{
     border: none;
   }
 
+  .bi-x-square{
+    color: #8a0909;
+  }
  
+  h5.pokemon-title{
+     margin-top: 2rem;
+  }

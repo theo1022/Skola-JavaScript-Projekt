@@ -120,13 +120,20 @@ document.addEventListener("click", function (event) {
   let target = event.target;
 
   if (target.className == "btn btn-add-to-cart") {
-    const cardPreview = target.closest(".card-preview");
+    const cardPreview = target.closest(".card");
     const cardImage = cardPreview.querySelector("img");
+    console.log(cardImage);
     const cardTitle = cardPreview.querySelector(".card-title");
+    let storage = JSON.parse(localStorage.getItem("cartArray"));
 
-    addToCart(cardTitle,cardImage);
-    createCart();
-   
+if(storage.length != 6){
+  addToCart(cardTitle,cardImage);
+  createCart();
+
+}else{
+  alert("Limit is 6 cards");
+}
+ 
   }
 });
 
@@ -135,13 +142,14 @@ function createCart() {
   collapse.innerHTML = "";
 
   const divCollapse = document.createElement("div");
-  divCollapse.className = "collapse collapse-horisontal";
+  divCollapse.className = "collapse.show collapse-horisontal";
   divCollapse.id = "collapse-cart";
   const divCardBody = document.createElement("div");
   divCardBody.className = "card card-body";
 
   let storage = JSON.parse(localStorage.getItem("cartArray"));
   for (let i = 0; i < storage.length; i++) {
+ 
     const divWrapper = document.createElement("div");
     divWrapper.className = "wrapper-cart";
 
@@ -171,11 +179,12 @@ function createCart() {
     divWrapper.append(divTitle);
     divWrapper.append(divButton);
     divCardBody.append(divWrapper);
+    divCollapse.append(divCardBody);
+
+    collapse.append(divCollapse);
+  
   }
-  divCollapse.append(divCardBody);
-
-  collapse.append(divCollapse);
-
+ 
 }
 
   
