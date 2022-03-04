@@ -199,11 +199,12 @@ document.addEventListener("click", function (event) {
     }
   }
   if (target.className === "bi bi-cart-fill") {
-    const collapseSection = document.querySelector("#collapse-section");
+    const collapseSection = document.getElementById("collapse-section");
     let storage = JSON.parse(localStorage.getItem("cartArray"));
 
-    if (storage != null) createCart();
-    if (collapseSection.innerHTML === "") alert("Cart is empty!");
+    if (storage != null) {createCart();}
+    if(storage.length === 0){alert("Cart is empty!");}
+   
   }
   if (target.className === "bi bi-x-square") {
     let collapseContainer = target.closest(".wrapper-cart");
