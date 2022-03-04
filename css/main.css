@@ -73,6 +73,15 @@ h1 {
   text-align: center;
 }
 
+.unown {
+  transform: scaleX(-1);
+}
+
+.card-img-top {
+  height: 400px;
+  object-fit: contain;
+}
+
 /*PAGINATION*/
 .page-link {
   color: #ac0d0d;
