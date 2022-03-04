@@ -127,7 +127,6 @@ h1 {
 }
 .card.card-body{
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
 }
 
@@ -147,7 +146,7 @@ h1 {
      align-items: center;
   }
 
-  .title-img-warpper{
+  .title-img-wrapper{
       display: flex;
       justify-content: space-between;
   }
@@ -159,4 +158,8 @@ h1 {
 
   .btn-read-more-cart:hover{
       color: #FFC300;
+  }
+
+  @media (min-width: 600px) {
+    .card.card-body { grid-template-columns: repeat(2, 1fr); }
   }

@@ -92,10 +92,10 @@ async function showDescription(name, pokeArray) {
 
 function createCart() {
   const collapse = document.getElementById("collapse-section");
-  collapse.innerHTML = "";
+  collapse.innerHTML = " ";
 
   const divCollapse = document.createElement("div");
-  divCollapse.className = "collapse.show collapse-horisontal";
+  divCollapse.className = "";
   divCollapse.id = "collapse-cart";
 
   const divCardBody = document.createElement("div");
@@ -118,7 +118,7 @@ function createCart() {
     collapseImg.src = storage[i].img;
 
     const divTitle = document.createElement("div");
-    divTitle.className = "title-img-warpper";
+    divTitle.className = "title-img-wrapper";
 
     const collapseTitle = document.createElement("h5");
     collapseTitle.className = "pokemon-title";
@@ -140,11 +140,9 @@ function createCart() {
     divTitle.append(collapseTitle);
     divTitle.append(deleteBtn);
     divWrapper.append(divTitle);
-    // divWrapper.append(divButton);
     divWrapper.append(readMoreDiv);
     divCardBody.append(divWrapper);
     divCollapse.append(divCardBody);
-
     collapse.append(divCollapse);
   }
 }
@@ -157,6 +155,7 @@ function InitiateButtons(pokeArray) {
       let pokemonName = target
         .closest(".card-body")
         .querySelector("h5.card-title");
+
       let title = pokemonName.innerText;
 
       showDescription(title.toLowerCase(), pokeArray);
@@ -165,11 +164,11 @@ function InitiateButtons(pokeArray) {
       let pokemonName = target
         .closest(".wrapper-cart")
         .querySelector("h5.pokemon-title");
-      console.log(pokemonName);
+
       let title = pokemonName.innerText;
 
       showDescription(title.toLowerCase(), pokeArray);
-    }
+    } 
   });
 }
 
@@ -184,32 +183,33 @@ document.addEventListener("click", function (event) {
 
     if (storage === null || storage.length != 6) {
       pokemon.addToCart(cardTitle, cardImage);
+      const collapse = document.getElementById("collapse-section");
+      collapse.className = "collapse show";
+
       createCart();
     } else {
+
       alert("Limit is 6 cards");
+      
     }
   }
   if (target.className === "bi bi-cart-fill") {
     const collapseSection = document.querySelector("#collapse-section");
     let storage = JSON.parse(localStorage.getItem("cartArray"));
 
-    if (storage != null) {
-      createCart();
-    }
-
-    if (collapseSection.innerHTML === "") {
-      alert("Cart is empty!");
-    }
+    if (storage != null) createCart();
+    if (collapseSection.innerHTML === "") alert("Cart is empty!");
+    
   }
-  if (target.className != "bi bi-x-square") {
-    return;
+  if (target.className === "bi bi-x-square") {
+    let collapseContainer = target.closest(".wrapper-cart");
+    let getTitle = collapseContainer.querySelector("h5.pokemon-title").id;
+  
+    collapseContainer.remove();
+    pokemon.deleteFromCart(getTitle);
+    createCart();
   }
-  let collapseContainer = target.closest(".wrapper-cart");
-  let getTitle = collapseContainer.querySelector("h5.pokemon-title").id;
-
-  collapseContainer.remove();
-  pokemon.deleteFromCart(getTitle);
-  createCart();
+  
 });
 
 function LoadNewBatch(direction, steps) {
