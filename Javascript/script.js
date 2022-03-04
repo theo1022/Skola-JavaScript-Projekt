@@ -62,9 +62,9 @@ async function showDescription(name, pokeArray, showAddToCart) {
   );
 
   const addToCartElem = document.getElementById("add-to-cart");
-  if (showAddToCart) addToCartElem.classList.remove("hide-me");
+  if (showAddToCart) addToCartElem.classList.remove("hide-element");
   else {
-    addToCartElem.classList.add("hide-me");
+    addToCartElem.classList.add("hide-element");
   }
 
   for (let card of cards) {
@@ -91,8 +91,6 @@ async function showDescription(name, pokeArray, showAddToCart) {
       cardText.innerHTML = await pokemon.GetPokemonDescription(name);
 
       cardText.innerHTML = cardText.innerHTML.replaceAll("\u000C", " ");
-
-      console.log(cardText.innerHTML);
     }
   }
 }
@@ -261,7 +259,6 @@ function UppdatePagination(currentPage) {
   plus2Elem.innerHTML = +currentPage + 2;
   plus3Elem.innerHTML = +currentPage + 3;
 
-  //TODO bryt ut till egen funktion som tar in element eller gör till loop???
   if (minus3Elem.innerHTML < 1) {
     minus3Elem.classList.add("hide-element");
   } else {
