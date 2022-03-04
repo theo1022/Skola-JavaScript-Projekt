@@ -78,14 +78,12 @@ export class Pokemon {
     let response = await fetch(this.url);
 
     let description = await response.json();
-    console.log(description);
 
     let pokemonDescription = description.flavor_text_entries;
     let pokemonDescriptionText;
 
     for (let i = 0; i < pokemonDescription.length; i++) {
       if (pokemonDescription[i].language.name === "en") {
-        console.log(pokemonDescription[i].language.name);
         pokemonDescriptionText = pokemonDescription[i].flavor_text;
       }
     }
@@ -93,10 +91,10 @@ export class Pokemon {
     return pokemonDescriptionText;
   }
 
-   addToCart(title, image) {
+  addToCart(title, image) {
     let storage = JSON.parse(localStorage.getItem("cartArray"));
     let cartArray;
-  
+
     if (storage === null) {
       cartArray = [];
     } else {
@@ -106,18 +104,15 @@ export class Pokemon {
       name: title,
       img: image,
     };
-  
+
     cartArray.push(pokemonCart);
-    console.log(cartArray);
     localStorage.setItem("cartArray", JSON.stringify(cartArray));
   }
 
-   deleteFromCart(id) {
+  deleteFromCart(id) {
     let storage = JSON.parse(localStorage.getItem("cartArray"));
-  
+
     storage.splice(id, 1);
-    console.log(storage);
     localStorage.setItem("cartArray", JSON.stringify(storage));
   }
 }
-
