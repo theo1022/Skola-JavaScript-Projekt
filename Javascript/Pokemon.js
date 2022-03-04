@@ -92,4 +92,32 @@ export class Pokemon {
 
     return pokemonDescriptionText;
   }
+
+   addToCart(title, image) {
+    let storage = JSON.parse(localStorage.getItem("cartArray"));
+    let cartArray;
+  
+    if (storage === null) {
+      cartArray = [];
+    } else {
+      cartArray = storage;
+    }
+    let pokemonCart = {
+      name: title,
+      img: image,
+    };
+  
+    cartArray.push(pokemonCart);
+    console.log(cartArray);
+    localStorage.setItem("cartArray", JSON.stringify(cartArray));
+  }
+
+   deleteFromCart(id) {
+    let storage = JSON.parse(localStorage.getItem("cartArray"));
+  
+    storage.splice(id, 1);
+    console.log(storage);
+    localStorage.setItem("cartArray", JSON.stringify(storage));
+  }
 }
+

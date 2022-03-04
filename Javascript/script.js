@@ -50,25 +50,7 @@ function PrintPokeCard(pokeArray) {
   }
 }
 
-function InitiateButtons(pokeArray) {
-  document.addEventListener("click", function (event) {
-    let target = event.target;
-
-    if (target.className == "btn btn-read-more") {
-      let pokemonName = target
-        .closest(".card-body")
-        .querySelector("h5.card-title");
-
-      console.log(pokemonName);
-      let title = pokemonName.innerText;
-      console.log(title);
-
-      showDescription(title.toLowerCase(), pokeArray);
-    }
-  });
-}
-
-async function showDescription(name, pokeArray) {
+async function showDescription(name, pokeArray, showAddToCart) {
   const cards = document.querySelectorAll(".card-preview");
   const cardText = document.querySelector(".card-description");
   const pokemonName = document.getElementById("pokemon-name");
@@ -78,6 +60,12 @@ async function showDescription(name, pokeArray) {
   const pokemonHeightandWeight = document.getElementById(
     "pokemon-height-weight"
   );
+
+  const addToCartElem = document.getElementById("add-to-cart");
+  if (showAddToCart) addToCartElem.classList.remove("hide-me");
+  else {
+    addToCartElem.classList.add("hide-me");
+  }
 
   for (let card of cards) {
     let index = card.id.slice(5, 6);
@@ -109,25 +97,14 @@ async function showDescription(name, pokeArray) {
   }
 }
 
-document.addEventListener("click", function (event) {
-  let target = event.target;
-
-  if (target.className == "btn btn-add-to-cart") {
-    const cardPreview = target.closest(".card-preview");
-    const cardImage = cardPreview.querySelector("img");
-    const cardTitle = cardPreview.querySelector(".card-title");
-
-    createCartArray(cardImage, cardTitle);
-  }
-});
-
 function createCart() {
   const collapse = document.getElementById("collapse-section");
-  collapse.innerHTML = "";
+  collapse.innerHTML = " ";
 
   const divCollapse = document.createElement("div");
-  divCollapse.className = "collapse collapse-horisontal";
+  divCollapse.className = "";
   divCollapse.id = "collapse-cart";
+
   const divCardBody = document.createElement("div");
   divCardBody.className = "card card-body";
 
@@ -136,33 +113,107 @@ function createCart() {
   for (let i = 0; i < storage.length; i++) {
     const divWrapper = document.createElement("div");
     divWrapper.className = "wrapper-cart";
+
+    const divButton = document.createElement("div");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "deleteBtn";
+    const deleteIcon = document.createElement("i");
+    deleteIcon.className = "bi bi-x-square";
+
     const collapseImg = document.createElement("img");
     collapseImg.className = "collapse-image";
     collapseImg.src = storage[i].img;
+
+    const divTitle = document.createElement("div");
+    divTitle.className = "title-img-wrapper";
+
     const collapseTitle = document.createElement("h5");
+    collapseTitle.className = "pokemon-title";
     collapseTitle.innerText = storage[i].name;
+    collapseTitle.id = i;
 
-    divWrapper.append(collapseImg);
-    divWrapper.append(collapseTitle);
+    const readMoreDiv = document.createElement("div");
+    readMoreDiv.className = "button-wrapper";
+    const readMoreBtn = document.createElement("a");
+    readMoreBtn.className = "btn btn-read-more-cart";
+    readMoreBtn.innerText = "Read more";
+    readMoreBtn.setAttribute("data-bs-toggle", "modal");
+    readMoreBtn.setAttribute("data-bs-target", "#card-modal");
+
+    readMoreDiv.append(readMoreBtn);
+    divButton.append(deleteBtn);
+    deleteBtn.append(deleteIcon);
+    divTitle.append(collapseImg);
+    divTitle.append(collapseTitle);
+    divTitle.append(deleteBtn);
+    divWrapper.append(divTitle);
+    divWrapper.append(readMoreDiv);
     divCardBody.append(divWrapper);
+    divCollapse.append(divCardBody);
+    collapse.append(divCollapse);
   }
-  divCollapse.append(divCardBody);
-
-  collapse.append(divCollapse);
 }
-let cartArray = [];
 
-function createCartArray(image, title) {
-  let pokemonCart = {
-    name: title.innerText,
-    img: image.src,
-  };
+function InitiateButtons(pokeArray) {
+  document.addEventListener("click", function (event) {
+    let target = event.target;
 
-  cartArray.push(pokemonCart);
-  console.log(cartArray);
-  localStorage.setItem("cartArray", JSON.stringify(cartArray));
+    if (target.className == "btn btn-read-more") {
+      let pokemonName = target
+        .closest(".card-body")
+        .querySelector("h5.card-title");
+
+      let title = pokemonName.innerText;
+
+      showDescription(title.toLowerCase(), pokeArray, true);
+    }
+    if (target.className === "btn btn-read-more-cart") {
+      let pokemonName = target
+        .closest(".wrapper-cart")
+        .querySelector("h5.pokemon-title");
+
+      let title = pokemonName.innerText;
+
+      showDescription(title.toLowerCase(), pokeArray, false);
+    }
+  });
 }
-createCart();
+
+document.addEventListener("click", function (event) {
+  let target = event.target;
+
+  if (target.className == "btn btn-add-to-cart") {
+    const cardPreview = target.closest(".card");
+    const cardImage = cardPreview.querySelector("img").src;
+    const cardTitle = cardPreview.querySelector(".card-title").innerText;
+    let storage = JSON.parse(localStorage.getItem("cartArray"));
+
+    if (storage === null || storage.length != 6) {
+      pokemon.addToCart(cardTitle, cardImage);
+      const collapse = document.getElementById("collapse-section");
+      collapse.className = "collapse show";
+
+      createCart();
+    } else {
+      alert("Limit is 6 cards");
+    }
+  }
+  if (target.className === "bi bi-cart-fill") {
+    const collapseSection = document.querySelector("#collapse-section");
+    let storage = JSON.parse(localStorage.getItem("cartArray"));
+
+    if (storage != null) createCart();
+    if (collapseSection.innerHTML === "") alert("Cart is empty!");
+  }
+  if (target.className === "bi bi-x-square") {
+    let collapseContainer = target.closest(".wrapper-cart");
+    let getTitle = collapseContainer.querySelector("h5.pokemon-title").id;
+
+    collapseContainer.remove();
+    pokemon.deleteFromCart(getTitle);
+    createCart();
+  }
+});
 
 function LoadNewBatch(direction, steps) {
   const currentPageNumber =
