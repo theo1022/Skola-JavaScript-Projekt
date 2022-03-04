@@ -49,7 +49,7 @@ function PrintPokeCard(pokeArray) {
   }
 }
 
-async function showDescription(name, pokeArray) {
+async function showDescription(name, pokeArray, showAddToCart) {
   const cards = document.querySelectorAll(".card-preview");
   const cardText = document.querySelector(".card-description");
   const pokemonName = document.getElementById("pokemon-name");
@@ -59,6 +59,12 @@ async function showDescription(name, pokeArray) {
   const pokemonHeightandWeight = document.getElementById(
     "pokemon-height-weight"
   );
+
+  const addToCartElem = document.getElementById("add-to-cart");
+  if (showAddToCart) addToCartElem.classList.remove("hide-me");
+  else {
+    addToCartElem.classList.add("hide-me");
+  }
 
   for (let card of cards) {
     let index = card.id.slice(5, 6);
@@ -158,7 +164,7 @@ function InitiateButtons(pokeArray) {
 
       let title = pokemonName.innerText;
 
-      showDescription(title.toLowerCase(), pokeArray);
+      showDescription(title.toLowerCase(), pokeArray, true);
     }
     if (target.className === "btn btn-read-more-cart") {
       let pokemonName = target
@@ -167,8 +173,8 @@ function InitiateButtons(pokeArray) {
 
       let title = pokemonName.innerText;
 
-      showDescription(title.toLowerCase(), pokeArray);
-    } 
+      showDescription(title.toLowerCase(), pokeArray, false);
+    }
   });
 }
 
@@ -188,9 +194,7 @@ document.addEventListener("click", function (event) {
 
       createCart();
     } else {
-
       alert("Limit is 6 cards");
-      
     }
   }
   if (target.className === "bi bi-cart-fill") {
@@ -199,17 +203,15 @@ document.addEventListener("click", function (event) {
 
     if (storage != null) createCart();
     if (collapseSection.innerHTML === "") alert("Cart is empty!");
-    
   }
   if (target.className === "bi bi-x-square") {
     let collapseContainer = target.closest(".wrapper-cart");
     let getTitle = collapseContainer.querySelector("h5.pokemon-title").id;
-  
+
     collapseContainer.remove();
     pokemon.deleteFromCart(getTitle);
     createCart();
   }
-  
 });
 
 function LoadNewBatch(direction, steps) {
